@@ -3,13 +3,12 @@
 <form action="" method = "POST" enctype="multipart/form-data">
 
     {% csrf_token %}
-    {{astroturista_form.as_p}}
-    {{form.as_p}}
+    {{astroturista.as_p}}
+    {{mi_formulario.as_p}}
     
 
-    <button type = "submit">Iniciar Sesion</button>
+    <button type = "submit">Editar perfil</button>
 
 </form>
 
 {% endblock ContenidoQueCambia %}
-

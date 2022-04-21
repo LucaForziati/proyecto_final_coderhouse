@@ -24,7 +24,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#!">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Acerca</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
@@ -32,15 +32,15 @@
                         <li class = "nav-item">
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://lh3.googleusercontent.com/-d-cldq0iIFQ/WpakxI3OXoI/AAAAAAAAOs0/v7lpT9KuFvMWyYUlcFBvonmUTFcfkbFhACHMYCw/avatar-santi%255B2%255D?imgmax=800" class="rounded-circle"
+                                    <img src="https://www.informador.mx/__export/1591209620028/sites/elinformador/img/2020/06/03/whatsapp_image_2020-06-03_at_1_22_36_pm_x1x_crop1591209586178.jpg_423682103.jpg" class="rounded-circle"
                                     height="35" alt="Avatar" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
                                 <li><a class="dropdown-item active" href="#">{{user.username}}</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Mis vuelos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Editar_perfil' %}">Modificar</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                                <li><a class="dropdown-item" href="{% url 'Logout' %}">Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -56,7 +56,7 @@
                 <div class="container px-6">
                     <h1 class="masthead-heading mb-0">¡Cree su usuario!</h1>
                     <h4 class="masthead-subheading mb-0">Con el podrá administrar su cuenta y obtener sus tickets</h5>
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Learn More</a>
+                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{% url 'Register' %}">Registrate</a>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
