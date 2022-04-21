@@ -21,6 +21,7 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include("Usuario.urls")),
+    path('viaje/', include("Viajes.urls")),
 ]
 
 #para las imagenes

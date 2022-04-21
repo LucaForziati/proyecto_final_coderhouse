@@ -1,0 +1,12 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+<form action="" method = "POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{crear_vehiculo_formulario.as_p}}
+    
+    <button type = "submit">Crear vehiculo</button>
+
+</form>
+
+{% endblock ContenidoQueCambia %}
