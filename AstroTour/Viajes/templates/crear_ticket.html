@@ -1,0 +1,12 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+<form action="" method = "POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {{crear_ticket_formulario.as_p}}
+    
+    <button type = "submit">Crear ticket</button>
+
+</form>
+
+{% endblock ContenidoQueCambia %}

@@ -1,0 +1,31 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+<section class="page-section" id="services">
+    <div class="container px-4 px-lg-5">
+        <hr class="divider" />
+        <div class="row gx-4 gx-lg-5">
+          
+            {% for ticket in object_list %}
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="card" style="width: 18rem;">
+                     <img src= "" class="" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ticket.usuario}}</h5>
+                        <p class="card-text">
+                            Destino: {{ticket.usuario}} <br>
+                            Vehiculo: {{ticket.vehiculo}} km/h <br>
+                            Precio: ${{ticket.precio}} <br>
+                            Timepo viaje: {{ticket.tiempo}} <br>
+                            Fecha: {{fecha.tiempo}} <br>
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                     </div>
+                    </div>
+                </div>
+            {% endfor %}    
+        </div>
+    </div>
+</section>
+<hr class="divider" />
+
+{% endblock ContenidoQueCambia %}
