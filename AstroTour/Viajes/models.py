@@ -8,7 +8,7 @@ class Destino(models.Model):
     lugar = models.CharField(max_length = 50)
     ubicacion = models.CharField(max_length= 50)
     kilometros = models.IntegerField()
-    gravedad = models.IntegerField()
+    gravedad = models.FloatField()
     imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
 
     def __str__(self):

@@ -1,0 +1,29 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+<section class="page-section" id="services">
+    <div class="container px-4 px-lg-5">
+        <hr class="divider" />
+        <div class="row gx-4 gx-lg-5">
+          
+            {% for vehiculo in object_list %}
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="card" style="width: 18rem;">
+                     <img src= "{{vehiculo.imagen.url}}" class="" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{vehiculo.nombre_vehiculo}}</h5>
+                        <p class="card-text">
+                            Cantidad pasajeros: {{vehiculo.cantidad_pasajeros}} <br>
+                            Velocidad: {{vehiculo.velocidad}} km/h <br>
+                            Precio por kilometro: ${{vehiculo.precio_x_km}} <br>
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                     </div>
+                    </div>
+                </div>
+            {% endfor %}    
+        </div>
+    </div>
+</section>
+<hr class="divider" />
+
+{% endblock ContenidoQueCambia %}
