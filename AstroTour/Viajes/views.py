@@ -15,6 +15,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from datetime import datetime
+
 
 # Create your views here.
 
@@ -175,10 +177,12 @@ def mostrar_tickets_astroturista(request):
 
     user1 = request.user
     astroturista = Astroturista.objects.get(user = user1)
+    now = datetime.now().date()
+    print(now)
 
     tickets = Ticket_abordaje.objects.filter(usuario = astroturista)
 
-    contexto = {"tickets_astrotusrita": tickets}
+    contexto = {"tickets_astrotusrita": tickets, "fecha_hoy": now}
 
     return render(request, "mostrar_ticket_usuario.html", contexto)
 
