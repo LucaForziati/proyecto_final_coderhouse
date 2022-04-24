@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include("Usuario.urls")),
     path('viaje/', include("Viajes.urls")),
+    path('comunidad/', include("Comunidad.urls")),
 ]
 
 #para las imagenes

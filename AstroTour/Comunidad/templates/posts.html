@@ -1,0 +1,24 @@
+{% extends "padre_comunidad.html" %}
+
+{% block ContenidoQueCambia %}
+
+
+
+<section class="page-section" id="services">
+
+    {% for post in object_list %}
+    <hr class="divider" />
+    <section class = "container_post">
+        <article class = "post_article">
+            <h2>{{post.nombre_post}}</h2>
+            <p><img src="{{post.usuario.avatar.url}}" width="50" class="rounded"/> {{post.usuario}}</p>  
+            <img src="{{post.imagen.url}}" width="500" height="300" class="rounded mx-auto d-block">
+            <p>{{post.descripcion}}</p>
+        </article>
+    </section>
+    {% endfor %}
+</section>
+
+
+
+{% endblock ContenidoQueCambia %}

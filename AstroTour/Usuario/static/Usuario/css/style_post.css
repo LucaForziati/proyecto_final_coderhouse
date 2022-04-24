@@ -1,0 +1,35 @@
+
+
+
+
+
+
+
+
+.container_post {
+    width: 800px;
+    margin: 0 auto;
+}
+
+.post_article {
+    transition: box-shadow 0.3s ease;
+    background-color: rgba(185, 53, 53, 0.349);
+    margin: 1rem 0;
+    margin-bottom: 4rem;
+    border-radius: 0.5rem;
+    padding: 0.25 0;
+    cursor: pointer;
+   
+}
+
+.post_article:hover {
+    box-shadow: 0 0.4rem 0.4rem rgba(0,0,0,0.3);
+}
+
+.post_article h2, section article p, section article a {
+    margin: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+
