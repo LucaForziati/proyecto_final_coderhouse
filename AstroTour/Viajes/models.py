@@ -10,6 +10,7 @@ class Destino(models.Model):
     kilometros = models.IntegerField()
     gravedad = models.FloatField()
     imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
+    descripcion = models.TextField()
 
     def __str__(self):
         return f"{self.lugar}"
@@ -21,6 +22,7 @@ class Vehiculo(models.Model):
     velocidad = models.IntegerField()
     precio_x_km = models.IntegerField()
     imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
+    descripcion = models.TextField()
 
     def __str__(self):
         return f"{self.nombre_vehiculo}"

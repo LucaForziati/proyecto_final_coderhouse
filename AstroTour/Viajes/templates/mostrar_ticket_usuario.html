@@ -1,8 +1,10 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
 <section class="page-section" id="services">
+    <hr class="divider" />
 
-    {% for ticket in object_list %}
+
+    {% for ticket in tickets_astrotusrita %}
     <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
@@ -21,6 +23,8 @@
           </div>
         </div>
     </div>
+    <hr class="divider" />
+
     {% endfor %}
 </section>
 <hr class="divider" />

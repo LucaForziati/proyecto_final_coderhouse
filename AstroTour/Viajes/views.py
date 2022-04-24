@@ -7,15 +7,21 @@ from django.contrib.auth.models import User
 from .models import  Destino, Ticket_abordaje, Vehiculo, Vuelos, Vuelos_pasajeros
 from .forms import  Destino_formulario, Ticket_formulario, Vehiculo_formulario
 
+from Usuario.models import Astroturista
+
 from django.views.generic import ListView
 
 from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 
 def padre_template(request):
 
     return render(request, "padre_viaje.html")
+
 
 @login_required
 def crear_vehiculos(request):
@@ -33,7 +39,8 @@ def crear_vehiculos(request):
                 cantidad_pasajeros = vehiculo_informacion["cantidad_pasajeros"],
                 velocidad = vehiculo_informacion["velocidad"],
                 precio_x_km = vehiculo_informacion["precio_x_km"],
-                imagen = vehiculo_informacion["imagen"]
+                imagen = vehiculo_informacion["imagen"],
+                descripcion = vehiculo_informacion["descripcion"]
                 )
             vehiculo.save()
 
@@ -68,7 +75,8 @@ def crear_destino(request):
                 ubicacion = destino_informacion["ubicacion"],
                 kilometros = destino_informacion["kilometros"],
                 gravedad = destino_informacion["gravedad"],
-                imagen = destino_informacion["imagen"]
+                imagen = destino_informacion["imagen"],
+                descripcion = destino_informacion["descripcion"]
                 )
             destino.save()
 
@@ -90,6 +98,9 @@ class Destinos_vista(ListView):
 @login_required
 def crear_ticket(request):
 
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)
+
     if request.method == "POST":
 
         ticket_formulario = Ticket_formulario(request.POST)
@@ -99,7 +110,7 @@ def crear_ticket(request):
             ticket_informacion = ticket_formulario.cleaned_data
             
             ticket = Ticket_abordaje (
-                usuario = ticket_informacion["usuario"],
+                usuario = astroturista,
                 destino = ticket_informacion["destino"],
                 vehiculo = ticket_informacion["vehiculo"],
                 precio = None,
@@ -149,7 +160,7 @@ def crear_ticket(request):
         return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario})
 
 
-class Tickets_vista(ListView):
+class Tickets_vista(ListView, LoginRequiredMixin):
 
     model = Ticket_abordaje
     template_name = "mostrar_tickets.html"
@@ -159,5 +170,18 @@ class Vuelos_vista(ListView):
 
     model = Vuelos
     template_name = "mostrar_vuelos.html"
+
+def mostrar_tickets_astroturista(request):
+
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)
+
+    tickets = Ticket_abordaje.objects.filter(usuario = astroturista)
+
+    contexto = {"tickets_astrotusrita": tickets}
+
+    return render(request, "mostrar_ticket_usuario.html", contexto)
+
+
 
 

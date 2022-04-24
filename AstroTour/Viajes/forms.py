@@ -16,7 +16,7 @@ class Ticket_formulario(forms.ModelForm):
     class Meta:
 
         model = Ticket_abordaje
-        fields = ('usuario','destino', 'vehiculo', 'fecha')
+        fields = ('destino', 'vehiculo', 'fecha')
 
 
 class Destino_formulario(forms.ModelForm):

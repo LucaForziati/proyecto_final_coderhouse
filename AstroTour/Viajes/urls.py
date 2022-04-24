@@ -9,6 +9,6 @@ urlpatterns = [
     path("mostrar-destinos", views.Destinos_vista.as_view(), name = "Mostrar_destinos"),
     path("mostrar-vuelos", views.Vuelos_vista.as_view(), name = "Mostrar_vuelos"),
     path("mostrar-tickets", views.Tickets_vista.as_view(), name = "Mostrar_tickets"),
-    path('crear-ticket', views.crear_ticket),
-
+    path('crear-ticket', views.crear_ticket, name = "Crear_ticket"),
+    path("ticket-usuario", views.mostrar_tickets_astroturista, name = "Mostrar_tickets_usuario"),
 ]
