@@ -20,7 +20,7 @@ def padre_template(request):
 
     avatar = Astroturista.objects.get(user = request.user.id)
 
-    return render(request, "padre.html", {'avatar': avatar})
+    return render(request, "padre.html", {'avatar': avatar.avatar.url})
 
 def login_request(request):
 
