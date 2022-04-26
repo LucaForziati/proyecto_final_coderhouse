@@ -2,6 +2,8 @@
 {% block ContenidoQueCambia %}
 <form action="" method = "POST" enctype="multipart/form-data">
 
+    Codigo de verificacion: <input type="text" name="cod_ver" id="cod_ver"></input>
+    <br>
     {% csrf_token %}
     {{form.as_p}}
     
