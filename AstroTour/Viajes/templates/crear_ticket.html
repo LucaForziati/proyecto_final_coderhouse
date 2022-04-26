@@ -4,8 +4,27 @@
 
     {% csrf_token %}
     {{crear_ticket_formulario.as_p}}
+    <p>Ingrese cantidad de acompañantes</p>
+    <select name="acompaniantes" id = "acompaniantes">
+        
+        <option>0</option>
+        
+        <option>1</option>
+        
+        <option>2</option>
+
+        <option>3</option>
+
+        <option>4</option>
+        
+    </select>
+    <br>
+    
     
     <button type = "submit">Crear ticket</button>
+    
+        
+    
 
 </form>
 

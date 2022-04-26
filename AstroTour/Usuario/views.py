@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SuperUserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
@@ -57,9 +57,7 @@ def register(request):
    
         form = UserCreationForm(request.POST)
         astroturista_form = Astroturista_formulario(request.POST, request.FILES)
-        
-        print("++++++++++")
-        print(form.is_valid())
+
         if form.is_valid() and astroturista_form.is_valid():
 
             username = form.cleaned_data["username"]
@@ -78,6 +76,27 @@ def register(request):
         astroturista_form = Astroturista_formulario(request.POST)
 
     return render(request, "registro.html", {"form": form, "astroturista_form": astroturista_form})
+
+def register_superusuario(request):
+
+    if request.method == "POST":
+   
+        form = SuperUserCreationForm(request.POST)
+        
+
+        if form.is_valid():
+
+            username = form.cleaned_data["username"]
+
+            user = form.save()
+
+            return render(request, "login.html")
+  
+    else:
+   
+        form = SuperUserCreationForm()
+
+    return render(request, "registro_superusuario.html", {"form": form})
 
 @login_required
 def editar_perfil(request):

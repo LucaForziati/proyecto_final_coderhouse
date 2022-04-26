@@ -7,25 +7,30 @@ from django.contrib.auth.models import User
 from .models import  Destino, Ticket_abordaje, Vehiculo, Vuelos, Vuelos_pasajeros
 from .forms import  Destino_formulario, Ticket_formulario, Vehiculo_formulario
 
-from Usuario.models import Astroturista
+from Usuario.models import Astroturista, Acompañantes
 
 from django.views.generic import ListView
 
 from django.contrib.auth.decorators import login_required
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from datetime import datetime
 
+from django.contrib.auth.decorators import user_passes_test
 
 # Create your views here.
+
+class SuperuserRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
 
 def padre_template(request):
 
     return render(request, "padre_viaje.html")
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def crear_vehiculos(request):
 
     if request.method == "POST":
@@ -103,6 +108,7 @@ def crear_ticket(request):
     user1 = request.user
     astroturista = Astroturista.objects.get(user = user1)
 
+
     if request.method == "POST":
 
         ticket_formulario = Ticket_formulario(request.POST)
@@ -168,7 +174,7 @@ class Tickets_vista(ListView, LoginRequiredMixin):
     template_name = "mostrar_tickets.html"
 
 
-class Vuelos_vista(ListView):
+class Vuelos_vista(SuperuserRequiredMixin, ListView):
 
     model = Vuelos
     template_name = "mostrar_vuelos.html"
