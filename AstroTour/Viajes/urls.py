@@ -11,4 +11,8 @@ urlpatterns = [
     path("mostrar-tickets", views.Tickets_vista.as_view(), name = "Mostrar_tickets"),
     path('crear-ticket', views.crear_ticket, name = "Crear_ticket"),
     path("ticket-usuario", views.mostrar_tickets_astroturista, name = "Mostrar_tickets_usuario"),
+    path("eliminar-vehiculo/<pk>", views.Vehiculos_delete.as_view(), name = "Eliminar_vehiculo"),
+    path("eliminar-destino/<pk>", views.Destino_delete.as_view(), name = "Eliminar_destino"),
+    path("editar-vehiculo/<pk>", views.Vehiculos_update.as_view(), name = "Editar_vehiculo"),
+    path("editar-destino/<pk>", views.Destino_update.as_view(), name = "Editar_destino"),
 ]

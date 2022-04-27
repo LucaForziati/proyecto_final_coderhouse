@@ -8,7 +8,7 @@
             {% for vehiculo in object_list %}
                 <div class="col-lg-3 col-md-6 text-center">
                     <div class="card" style="width: 18rem;">
-                     <img src= "{{vehiculo.imagen.url}}" class="" alt="...">
+                     <img src= "{{vehiculo.imagen.url}}" class="text-center" width="286" height="200" alt="...">
                         <div class="card-body">
                         <h5 class="card-title">{{vehiculo.nombre_vehiculo}}</h5>
                         <p class="card-text">
@@ -16,6 +16,36 @@
                             Velocidad: {{vehiculo.velocidad}} km/h <br>
                             Precio por kilometro: ${{vehiculo.precio_x_km}} <br>
                         </p>
+                        
+                        {% if request.user.is_superuser %}
+                        <a type = "btn" class="btn btn-primary" href = "{% url 'Editar_vehiculo' vehiculo.id %}" >Editar</a>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{vehiculo.id}}">
+                          Eliminar
+                        </button>
+                        <div class="modal fade" id="exampleModal{{vehiculo.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Eliminar {{vehiculo.nombre_vehiculo}}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  ¿Esta seguro que desea eliminar este vehiculo?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="{% url 'Eliminar_vehiculo' vehiculo.id %}" method="POST">
+                                  {% csrf_token %}
+                                  <button class="btn btn-primary">Delete</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                          
+
+
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{vehiculo.id}}">
                             Ver vehiculo
                         </button>
@@ -33,7 +63,8 @@
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Sacar Ticket!</button>
+                                  <button type="button" class="btn btn-primary" >Modificar</button>
+                                  
                                 </div>
                               </div>
                             </div>

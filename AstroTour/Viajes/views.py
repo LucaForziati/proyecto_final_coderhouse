@@ -19,6 +19,8 @@ from datetime import datetime
 
 from django.contrib.auth.decorators import user_passes_test
 
+from django.views.generic.edit import DeleteView, UpdateView
+
 # Create your views here.
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
@@ -66,7 +68,22 @@ class Vehiculos_vista(ListView):
     model = Vehiculo
     template_name = "mostrar_vehiculos.html"
 
-@login_required
+
+class Vehiculos_delete(DeleteView):
+
+    model = Vehiculo
+    success_url = "/viaje/mostrar-vehiculos"
+    template_name = "mostrar_vehiculos.html"
+
+class Vehiculos_update(UpdateView):
+
+    model = Vehiculo
+    success_url = "/viaje/mostrar-vehiculos"
+    fields = ['nombre_vehiculo', 'cantidad_pasajeros', 'velocidad', 'precio_x_km', 'imagen', 'descripcion']
+    template_name = "editar_vehiculo.html"
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def crear_destino(request):
 
     if request.method == "POST":
@@ -97,10 +114,24 @@ def crear_destino(request):
 
         return render(request, "crear_destino.html", {"crear_destino_formulario": destino_formulario})
 
+
 class Destinos_vista(ListView):
 
     model = Destino
     template_name = "mostrar_destinos.html"
+
+class Destino_delete(DeleteView):
+
+    model = Destino
+    success_url = "/viaje/mostrar-destinos"
+    template_name = "mostrar_destinos.html"
+
+class Destino_update(UpdateView):
+
+    model = Destino
+    success_url = "/viaje/mostrar-destinos"
+    fields = ['lugar', 'ubicacion', 'kilometros', 'gravedad', 'imagen', 'descripcion']
+    template_name = "editar_destino.html"
 
 @login_required
 def crear_ticket(request):
@@ -179,6 +210,7 @@ class Vuelos_vista(SuperuserRequiredMixin, ListView):
     model = Vuelos
     template_name = "mostrar_vuelos.html"
 
+@login_required
 def mostrar_tickets_astroturista(request):
 
     user1 = request.user
