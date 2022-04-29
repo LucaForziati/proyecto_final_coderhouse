@@ -1,0 +1,21 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+
+<h4>Crear vuelo</h4>
+
+<form action="" method="POST">{% csrf_token %}
+
+    
+    <table>
+
+        {{ crear_vuelo_formulario.as_p }}
+
+
+    </table>
+
+
+    <input type="submit", value="Enviar">
+
+</form>
+
+{% endblock ContenidoQueCambia %}

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import  Destino, Ticket_abordaje, Vehiculo, Vuelos_pasajeros
+from .models import  Destino, Ticket_abordaje, Vehiculo, Vuelos_pasajeros, Vuelos
 from Usuario.models import  Astroturista
 
 class Vehiculo_formulario(forms.ModelForm):
@@ -31,4 +31,11 @@ class Vuelos_pasajeros_formulario(forms.ModelForm):
     class Meta:
 
         model = Vuelos_pasajeros
+        fields = ("__all__")
+
+class Vuelos_formulario(forms.ModelForm):
+
+    class Meta:
+
+        model = Vuelos
         fields = ("__all__")
