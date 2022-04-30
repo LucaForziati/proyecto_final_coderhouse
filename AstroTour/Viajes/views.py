@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
 from .models import  Destino, Ticket_abordaje, Vehiculo, Vuelos, Vuelos_pasajeros
-from .forms import  Destino_formulario, Ticket_formulario, Vehiculo_formulario
+from .forms import  Destino_formulario, Ticket_formulario, Vehiculo_formulario, Vuelos_formulario
 
 from Usuario.models import Astroturista, Acompañantes
 
@@ -170,7 +170,7 @@ def crear_ticket(request):
                 destino = ticket_informacion["destino"],
                 vehiculo = ticket_informacion["vehiculo"],
                 fecha = ticket_informacion["fecha"],
-                numero_pasajeros = ticket.vehiculo.cantidad_pasajeros,
+                asientos_disponibles = ticket.vehiculo.cantidad_pasajeros - 1,
                 tiempo_viaje = ticket.tiempo
             )
             
@@ -186,7 +186,10 @@ def crear_ticket(request):
                 vuelos.vuelo_ticket.add(ticket.id)
 
             else:
+                vuelo_ya_creado = Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino)
                 Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino).vuelo_ticket.add(ticket.id)
+                vuelo_ya_creado.asientos_disponibles -= 1
+                vuelo_ya_creado.save()
             
             ticket_contexto = ticket_informacion
 
@@ -197,6 +200,7 @@ def crear_ticket(request):
         ticket_formulario = Ticket_formulario()
 
         return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario})
+
 
 
 class Tickets_vista(ListView, LoginRequiredMixin):
@@ -223,6 +227,40 @@ def mostrar_tickets_astroturista(request):
     contexto = {"tickets_astrotusrita": tickets, "fecha_hoy": now}
 
     return render(request, "mostrar_ticket_usuario.html", contexto)
+
+# def crear_vuelo_vip(request):
+
+#     if request.method == "POST":
+
+#         vuelo_formulario = Vuelos_formulario(request.POST, request.FILES)
+
+#         if vuelo_formulario.is_valid():
+
+#             vuelo_informacion = vuelo_formulario.cleaned_data
+            
+#             vuelo = Vuelos (
+#                 vuelo_ticket = vuelo_informacion["vuelo_ticket"],
+#                 vehiculo = vuelo_informacion["vehiculo"],
+#                 numero_pasajeros = vuelo.vehiculo.cantidad_pasajeros - 1,
+#                 destino = vuelo_informacion["destino"],
+#                 fecha = vuelo_informacion["fecha"],
+#                 tiempo_viaje = vuelo_informacion["tiempo_viaje"]
+#                 )
+#             vuelo.save()
+
+#             vuelo_contexto = vuelo_informacion
+
+#             return render(request, "padre.html", {"vuelo_contexto": vuelo_contexto})
+
+#     else: 
+
+#         vuelo_formulario = Vuelos_formulario()
+
+#         return render(request, "crear_vuelo.html", {"crear_vuelo_formulario": vuelo_formulario})
+
+def prueba_pagos(request):
+
+    return render(request, "pagos.html")
 
 
 

@@ -26,7 +26,11 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Sign Up</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_posts' %}">Comunidad</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Crear_ticket' %}">Tickets</a></li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_vuelos' %}">Ver vuelos</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Crear_ticket' %}">Tickets</a></li>
+                        {% endif %} 
                         <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
                         {% if request.user.is_authenticated %}
                         <li class = "nav-item">

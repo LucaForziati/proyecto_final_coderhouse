@@ -6,20 +6,26 @@
         <div class="row gx-4 gx-lg-5">
           
             {% for vuelo in object_list %}
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="card" style="width: 18rem;">
-                     <img src= "" class="" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title">{{vuelo.destino}}</h5>
-                        <p class="card-text">
-                            Fecha: {{vuelo.fecha}} <br>
-                            Vehiculo: {{vuelo.vehiculo}} km/h <br>
-                            Timepo viaje: {{vuelo.Timepo_viaje}} <br>
-                        </p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                     </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ticket.id}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                        {{vuelo.destino}} - Fecha: {{vuelo.fecha}}
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne{{ticket.id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">  
+                        Tickets Astroturistas: {{vuelo.vuelo_ticket}} <br>                      
+                        Destino: {{vuelo.destino}} <br>
+                        Vehiculo: {{vuelo.vehiculo}} <br>
+                        Timepo viaje: {{vuelo.tiempo_viaje}} <br>
+                        Fecha: {{vuelo.fecha}} <br>
+                        Asientos disponibles: {{vuelo.asientos_disponibles}}
                     </div>
+                        
+                  </div>
                 </div>
+              </div>
             {% endfor %}    
         </div>
     </div>

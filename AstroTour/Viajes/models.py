@@ -41,12 +41,13 @@ class Ticket_abordaje(models.Model):
 
 class Vuelos(models.Model):
 
-    vuelo_ticket = models.ManyToManyField(Ticket_abordaje, through= "Vuelos_pasajeros")
+    vuelo_ticket = models.ManyToManyField(Ticket_abordaje, through= "Vuelos_pasajeros", blank = True)
     vehiculo = models.ForeignKey(Vehiculo, on_delete= models.CASCADE, blank = True, null = True)
-    numero_pasajeros = models.IntegerField(blank = True, null = True)
+    asientos_disponibles = models.IntegerField(blank = True, null = True)
     destino = models.ForeignKey(Destino, on_delete= models.CASCADE, blank = True, null = True)
     fecha = models.DateField(blank = True, null = True)
     tiempo_viaje = models.IntegerField(blank = True, null = True)
+
 
 class Vuelos_pasajeros(models.Model):
 
