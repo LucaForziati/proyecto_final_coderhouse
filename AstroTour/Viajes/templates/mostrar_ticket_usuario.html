@@ -1,4 +1,5 @@
 {% extends "padre.html" %}
+{% load mathfilters %}
 {% block ContenidoQueCambia %}
 <section class="page-section" id="services">
     <hr class="divider" />
@@ -22,7 +23,18 @@
                 Vehiculo: {{ticket.vehiculo}} <br>
                 Precio: ${{ticket.precio}} <br>
                 Timepo viaje: {{ticket.tiempo}} <br>
-                Fecha: {{ticket.fecha}} <br></div>
+                Fecha: {{ticket.fecha}} <br>
+                
+                {% if ticket.tiempo < 60 %}
+                  Tiempo viaje: {{ticket.tiempo}} S
+                {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
+                  Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
+                {% else %}
+                  Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
+                {% endif %}
+
+                  
+            </div>
           </div>
         </div>
       </div>
