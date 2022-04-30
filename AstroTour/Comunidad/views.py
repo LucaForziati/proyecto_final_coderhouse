@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import Post_formulario, Comentarios_formulario
-from .models import Post, Comentarios
+from .models import Posts, Comentario
 from Usuario.models import Astroturista
 from django.views.generic import ListView
+from django.views.generic.edit import DeleteView, UpdateView
 
 # Create your views here.
 
@@ -23,7 +25,7 @@ def crear_post(request):
 
             post_informacion = post_form.cleaned_data
             
-            post = Post (
+            post = Posts (
                 usuario = astroturista,
                 nombre_post = post_informacion["nombre_post"],
                 descripcion = post_informacion["descripcion"],
@@ -42,18 +44,8 @@ def crear_post(request):
 
         return render(request, "crear_entrada.html", {"crear_entrada_formulario": post_form})
 
-class Post_vista(ListView):
 
-    model = Post
-    template_name = "posts.html"
-    context_object_name = 'post'
 
-    def get_context_data(self, **kwargs):
-        
-        context = super().get_context_data(**kwargs)
-        context['comentario'] = Comentarios.objects.filter(post=self.get_object()).all()
-
-        return context
 
 def crear_comentario(request):
 
@@ -68,9 +60,9 @@ def crear_comentario(request):
 
             comentario_informacion = comentario_form.cleaned_data
             
-            comentario = Comentarios (
+            comentario = Comentario (
                 author = astroturista,
-                post = post_informacion["nombre_post"],
+                #post = post_informacion["nombre_post"],
                 comentario = comentario_informacion["texto"],
                 )
             comentario.save()
@@ -83,4 +75,59 @@ def crear_comentario(request):
 
         comentario_form = Comentarios_formulario()
 
-        return render(request, "crear_entrada.html", {"crear_entrada_formulario": comentario_form})
+        return render(request, "posts.html", {"comentario_formulario": comentario_form})
+
+
+def posteos(request):
+    post = Posts.objects.all()
+
+    contexto={
+        'post': post,
+        'posteos': posteos
+    }
+    if not request.user.is_authenticated:
+        return render(request, 'login.html', contexto)
+    else:
+        return render(request, 'inicio_posts.html', contexto)
+
+def ver_posteos(request, id):
+        
+    post = Posts.objects.get(id=id)
+    comentario= Comentario.objects.filter(post__id = id)
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)
+
+    if request.method == "POST":
+        form_comentario = Comentarios_formulario(request.POST)
+        if request.user.is_authenticated:
+            if form_comentario.is_valid:
+                comentarioNuevo = form_comentario.save(commit=False)
+                comentarioNuevo.author = astroturista
+                comentarioNuevo.post = post
+                comentarioNuevo.save()
+            else:
+                return HttpResponse("Error, comentario no enviado :( envienos un mensaje en la sección sobre nosotros")
+        else:
+            return HttpResponse("Necesitar iniciar sesión para comentar!")
+    else:
+        form_comentario = Comentarios_formulario()
+    return render(request,'posts.html', {'post':post, 'comentario':comentario, 'form_comentario': form_comentario, 'astroturista': astroturista})
+
+class Comentario_delate(DeleteView):
+
+    model = Comentario
+    success_url = "/comunidad/posteos"
+    template_name = "posts.html"
+
+class Posts_delate(DeleteView):
+
+    model = Posts
+    success_url = "/comunidad/posteos"
+    template_name = "posts.html"
+
+class Posts_update(UpdateView):
+
+    model = Posts
+    success_url = "/comunidad/posteos"
+    fields = ['nombre_post', 'descripcion', 'texto', 'imagen']
+    template_name = "editar_post.html"

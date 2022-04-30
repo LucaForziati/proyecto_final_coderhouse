@@ -1,0 +1,23 @@
+{% extends "padre_comunidad.html" %}
+
+{% block ContenidoQueCambia %}
+
+
+{% for posteo in post %}
+<h2 class="card-title">{{posteo.nombre_post}}</h2>
+<h3 class="card-subtitle">{{posteo.descripcion}}</h3>
+<p class="post-meta">Escrito por {{posteo.usuario}}</p>
+
+<p>
+    <span><i class="fas fa-thumbs-up"></i>{{posteo.get_like_count}}</span>
+    <span><i class="fas fa-comments"></i>{{posteo.get_comment_count}}</span>
+
+</p>
+<p class="card-text">{{posteo.texto}}</p>  
+<a class="btn btn-secondary" style= margin:10px; href="{% url 'Mostrar_posts' posteo.pk %}">Leer más →</a>
+{% endfor %}
+
+
+
+
+{% endblock ContenidoQueCambia %}

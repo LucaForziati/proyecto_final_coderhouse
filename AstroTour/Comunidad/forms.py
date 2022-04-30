@@ -1,16 +1,16 @@
 from django import forms
-from .models import Comentarios, Post
+from .models import Comentario, Posts
 
 
 class Post_formulario(forms.ModelForm):
 
     class Meta:
 
-        model = Post
+        model = Posts
         fields = ('nombre_post', 'descripcion', 'texto', 'imagen')
 
 class Comentarios_formulario(forms.ModelForm):
 
     class Meta:
-        model = Comentarios
-        fields = ("__all__")
+        model = Comentario
+        fields = ("comentario",)

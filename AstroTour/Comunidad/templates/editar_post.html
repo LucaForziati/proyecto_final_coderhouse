@@ -1,0 +1,21 @@
+{% extends "padre_comunidad.html" %}
+{% block ContenidoQueCambia %}
+
+<h4>Edita el Posteo</h4>
+
+<form action="" method="POST">{% csrf_token %}
+
+    
+    <table>
+
+        {{ form.as_p }}
+
+
+    </table>
+
+
+    <input type="submit", value="Enviar">
+
+</form>
+
+{% endblock ContenidoQueCambia %}

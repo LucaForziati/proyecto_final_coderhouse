@@ -25,7 +25,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_posts' %}">Comunidad</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Ver_post' %}">Comunidad</a></li>
                         {% if request.user.is_superuser %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_vuelos' %}">Ver vuelos</a></li>
                         {% else %}
