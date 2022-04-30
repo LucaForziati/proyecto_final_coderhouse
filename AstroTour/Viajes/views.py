@@ -203,7 +203,6 @@ def crear_ticket(request):
 
 
 
-
 class Tickets_vista(ListView, LoginRequiredMixin):
 
     model = Ticket_abordaje
@@ -229,36 +228,39 @@ def mostrar_tickets_astroturista(request):
 
     return render(request, "mostrar_ticket_usuario.html", contexto)
 
-def crear_vuelo(request):
+# def crear_vuelo_vip(request):
 
-    if request.method == "POST":
+#     if request.method == "POST":
 
-        vuelo_formulario = Vuelos_formulario(request.POST, request.FILES)
+#         vuelo_formulario = Vuelos_formulario(request.POST, request.FILES)
 
-        if vuelo_formulario.is_valid():
+#         if vuelo_formulario.is_valid():
 
-            vuelo_informacion = vuelo_formulario.cleaned_data
+#             vuelo_informacion = vuelo_formulario.cleaned_data
             
-            vuelo = Vuelos (
-                vuelo_ticket = vuelo_informacion["vuelo_ticket"],
-                vehiculo = vuelo_informacion["vehiculo"],
-                numero_pasajeros = vuelo.vehiculo.cantidad_pasajeros - 1,
-                destino = vuelo_informacion["destino"],
-                fecha = vuelo_informacion["fecha"],
-                tiempo_viaje = vuelo_informacion["tiempo_viaje"]
-                )
-            vuelo.save()
+#             vuelo = Vuelos (
+#                 vuelo_ticket = vuelo_informacion["vuelo_ticket"],
+#                 vehiculo = vuelo_informacion["vehiculo"],
+#                 numero_pasajeros = vuelo.vehiculo.cantidad_pasajeros - 1,
+#                 destino = vuelo_informacion["destino"],
+#                 fecha = vuelo_informacion["fecha"],
+#                 tiempo_viaje = vuelo_informacion["tiempo_viaje"]
+#                 )
+#             vuelo.save()
 
-            vuelo_contexto = vuelo_informacion
+#             vuelo_contexto = vuelo_informacion
 
-            return render(request, "padre.html", {"vuelo_contexto": vuelo_contexto})
+#             return render(request, "padre.html", {"vuelo_contexto": vuelo_contexto})
 
-    else: 
+#     else: 
 
-        vuelo_formulario = Vuelos_formulario()
+#         vuelo_formulario = Vuelos_formulario()
 
-        return render(request, "crear_vuelo.html", {"crear_vuelo_formulario": vuelo_formulario})
+#         return render(request, "crear_vuelo.html", {"crear_vuelo_formulario": vuelo_formulario})
 
+def prueba_pagos(request):
+
+    return render(request, "pagos.html")
 
 
 

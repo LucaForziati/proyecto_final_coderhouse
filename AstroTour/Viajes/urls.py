@@ -15,5 +15,6 @@ urlpatterns = [
     path("eliminar-destino/<pk>", views.Destino_delete.as_view(), name = "Eliminar_destino"),
     path("editar-vehiculo/<pk>", views.Vehiculos_update.as_view(), name = "Editar_vehiculo"),
     path("editar-destino/<pk>", views.Destino_update.as_view(), name = "Editar_destino"),
-    path("crear-vuelo", views.crear_vuelo, name = "Crear_vuelo"),
+    #path("crear-vuelo", views.crear_vuelo, name = "Crear_vuelo"),
+    path("pagos", views.prueba_pagos)
 ]
