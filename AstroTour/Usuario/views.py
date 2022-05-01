@@ -1,17 +1,19 @@
 from django.shortcuts import render
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, SuperUserCreationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
 from .models import Astroturista
 
-from .forms import Astroturista_formulario, UserEditForm, AstroturistaEditForm
+from .forms import Astroturista_formulario, UserEditForm, AstroturistaEditForm, SuperUserCreationForm
 from django.contrib.auth.decorators import login_required
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+
 
 # Create your views here.
 
@@ -82,11 +84,14 @@ def register_superusuario(request):
 
     if request.method == "POST":
 
+        print(request.POST["cod_ver"] == "24B42")
+
         if request.POST["cod_ver"] == "24B42":
     
             form = SuperUserCreationForm(request.POST)
+            print("+++++++++++")
+            print(form.is_valid())
             
-
             if form.is_valid():
 
                 username = form.cleaned_data["username"]
@@ -94,6 +99,11 @@ def register_superusuario(request):
                 user = form.save()
 
                 return render(request, "login.html")
+
+            else:
+
+                return render(request, "login.html")
+
         else:
             
             form = SuperUserCreationForm()
