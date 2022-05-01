@@ -156,5 +156,11 @@ def editar_perfil(request):
         return render(request, "editar_perfil.html", {'mi_formulario': mi_formulario, 'usuario': usuario, 'astroturista': mi_formulario2})
 
 
+def perfil_propio(request):
 
+    astroturista = Astroturista.objects.get(user = request.user)
+
+    contexto = astroturista
+
+    return render(request, "perfil.html", {"astroturista": contexto})
 

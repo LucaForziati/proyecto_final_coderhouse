@@ -1,0 +1,28 @@
+{% extends "padre.html" %}
+{% load static %}
+{% block ContenidoQueCambia %}
+<section>
+        <div class="">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-3">
+                    <div class="p-5"><img class="img rounded-circle" src="{{astroturista.avatar.url}}" width="280" height="250" alt="..." /></div>
+                    <a type = "btn" class="btn btn-primary" href = "{% url 'Editar_perfil' %}" >Modificar perfil</a>
+                    <br>
+                    <a type = "btn" class="btn btn-primary" href = "{% url 'Editar_perfil' %}" >Eliminar perfil</a>
+                </div>
+                <div class="col-lg-6">
+                    <div class="p-2">
+                        <h2 class="display-4">{{astroturista.user.first_name}} {{astroturista.user.last_name}}</h2>
+                        <p>Pasaporte espacial: {{astroturista.pasaporte_espacial}}</p>
+                        <p>Peso terrestre: {{astroturista.peso}} Kg</p>
+                        <p>Email: {{astroturista.user.email}}</p>
+                        <p>Ultima vez en linea: {{astroturista.user.last_login}}</p>
+                        <p>Unido: {{astroturista.user.date_joined}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</section>
+
+{% endblock ContenidoQueCambia %}

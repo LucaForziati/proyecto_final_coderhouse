@@ -9,5 +9,5 @@ urlpatterns = [
     path('logout', LogoutView.as_view(template_name = 'login.html'), name = 'Logout'),
     path('editar', views.editar_perfil, name = 'Editar_perfil'),
     path('register-super', views.register_superusuario, name = 'Register_super'),
-    path('perfil', views.register_superusuario, name = 'Perfil')
+    path('perfil', views.perfil_propio, name = 'Perfil_propio'),
 ]

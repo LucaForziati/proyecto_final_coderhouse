@@ -40,7 +40,7 @@
                                     height="35" alt="Avatar" loading="lazy" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item active" href="#">{{user.username}}</a></li>
+                                <li><a class="dropdown-item active" href="{% url 'Perfil_propio' %}">{{user.username}}</a></li>
                                 <li><a class="dropdown-item" href="{% url 'Mostrar_tickets_usuario' %}">Mis vuelos</a></li>
                                 <li><a class="dropdown-item" href="{% url 'Editar_perfil' %}">Modificar</a></li>
                                 <li><hr class="dropdown-divider"></li>
