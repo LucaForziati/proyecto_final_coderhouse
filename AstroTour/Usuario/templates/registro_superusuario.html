@@ -5,6 +5,7 @@
     Codigo de verificacion: <input type="text" name="cod_ver" id="cod_ver"></input>
     <br>
     {% csrf_token %}
+    {{astroturista_form.as_p}}
     {{form.as_p}}
     
 

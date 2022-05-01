@@ -45,8 +45,6 @@ def crear_post(request):
         return render(request, "crear_entrada.html", {"crear_entrada_formulario": post_form})
 
 
-
-
 def crear_comentario(request):
 
     user1 = request.user

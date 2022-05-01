@@ -84,19 +84,21 @@ def register_superusuario(request):
 
     if request.method == "POST":
 
-        print(request.POST["cod_ver"] == "24B42")
 
         if request.POST["cod_ver"] == "24B42":
     
             form = SuperUserCreationForm(request.POST)
-            print("+++++++++++")
-            print(form.is_valid())
+            astroturista_form = Astroturista_formulario(request.POST, request.FILES)
             
-            if form.is_valid():
+            if form.is_valid() and astroturista_form.is_valid():
 
                 username = form.cleaned_data["username"]
 
                 user = form.save()
+
+                astroturista = astroturista_form.save(commit = False)
+                astroturista.user = user
+                astroturista.save()
 
                 return render(request, "login.html")
 
@@ -113,8 +115,9 @@ def register_superusuario(request):
     else:
     
         form = SuperUserCreationForm()
+        astroturista_form = Astroturista_formulario(request.POST)
 
-        return render(request, "registro_superusuario.html", {"form": form})
+        return render(request, "registro_superusuario.html", {"form": form, "astroturista_form": astroturista_form})
 
 @login_required
 def editar_perfil(request):
