@@ -155,3 +155,6 @@ def editar_perfil(request):
 
         return render(request, "editar_perfil.html", {'mi_formulario': mi_formulario, 'usuario': usuario, 'astroturista': mi_formulario2})
 
+
+
+

@@ -14,3 +14,16 @@ class Comentarios_formulario(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = ("comentario",)
+        label={
+            'comentario': 'Comentario'
+        }
+        widgets = {
+            'comentario':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese su comentario',
+                    'cols': '2px',
+                    'rows': '2px'
+                }
+            )
+        }

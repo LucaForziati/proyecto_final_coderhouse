@@ -4,65 +4,78 @@
 
 
 
-<section class="page-section" id="services">
-
-   
-    <hr class="divider" />
-    <section class = "container_post">
-        <article class = "post_article">
-            <h2>{{posteo.nombre_post}}</h2>
-            <p><img src="{{post.usuario.avatar.url}}" width="50" class="rounded"/> {{post.usuario}}</p>  
-            <img src="{{post.imagen.url}}" width="500" height="300" class="rounded mx-auto d-block">
-            <p>{{post.descripcion}}</p>
-            <form  method="POST" class="post-form">
-                {% csrf_token %}
-                {{form_comentario.as_p}}
-                
-                <button type="submit" style=margin:10px; class="save btn btn-secondary">Agregar comentario</button>
-
-            </form> 
-            
-            {% for comentarios in comentario %}
-            <div class="d-flex mb-4">
-           
-                <div class="flex-shrink-0"><img class="rounded-circle" src= ""  height ="50px" width="50px"  alt="..."></div> 
-                
-                    <div class="ms-3">
-                
-                        <div class="text-muted fst-italic mb-2">{{comentarios.author}}</div>
-                            <p>{{comentarios.comentario}} </p>
-                
-                        <div class="col-lg-12" style="margin-top: 10px">
-                    </div>
-                </div>
-            </div>
-            {% if comentarios.author == astroturista or request.user.is_superuser %}
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{comentarios.id}}">
-              Eliminar
-            </button>
-            <div class="modal fade" id="exampleModal{{comentarios.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      ¿Esta seguro que desea eliminar este comentario?
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form action="{% url 'Eliminar_comentario' comentarios.id %}" method="POST">
+<div class="container mt-5">
+  <div class="row">
+      <div class="col-lg-8">
+          <!-- Post content-->
+          <article>
+              <!-- Post header-->
+              <header class="mb-4">
+                  <!-- Post title-->
+                  <h1 class="fw-bolder mb-1">{{post.nombre_post}}</h1>
+                  <!-- Post meta content-->
+                  <div class="text-muted fst-italic mb-2">Creado por {{post.usuario}}</div>
+              </header>
+              <!-- Preview image figure-->
+              <figure class="mb-4"><img class="img-fluid rounded" src="{{post.imagen.url}}" alt="..." /></figure>
+              <!-- Post content-->
+              <section class="mb-5">
+                  <p class="fs-5 mb-4">{{post.texto}}</p>
+              </section>
+          </article>
+          <!-- Comentarios-->
+          <section class="mb-5">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <!-- Comment form-->
+                    <form  method="POST" class="mb-4">
                       {% csrf_token %}
-                      <button class="btn btn-primary">Delete</button>
-                    </form>
-                  </div>
+                      {{form_comentario.as_p}}
+                      
+                      <button type="submit" style=margin:10px; class="save btn btn-secondary">Ingresar Comentario</button>
+      
+                  </form> 
+                    <!-- Comment with nested comments-->
+                    
+                    {% for comentarios in comentario  %} 
+                    <div class="d-flex mb-4">
+                        <!-- Parent comment-->
+                        <div class="flex-shrink-0"><img class="rounded-circle" src="{{comentarios.author.avatar.url}}" width="25" height="25" alt="..." /></div>
+                        <div class="ms-3">
+                            <div class="fw-bold">{{comentarios.author}}</div>
+                            {{comentarios.comentario}}
+                        </div>
+                        {% if comentarios.author == astroturista or request.user.is_superuser %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{comentarios.id}}">
+                          Eliminar
+                        </button>
+                        <div class="modal fade" id="exampleModal{{comentarios.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Eliminar</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  ¿Esta seguro que desea eliminar este comentario?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <form action="{% url 'Eliminar_comentario' comentarios.id %}" method="POST">
+                                  {% csrf_token %}
+                                  <button class="btn btn-primary">Delete</button>
+                                </form>
+                                
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
                 </div>
               </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-            
+            </section>
             {% if post.usuario == astroturista or request.user.is_superuser %}
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Eliminar
@@ -88,11 +101,14 @@
                 </div>
               </div>
             {% endif %}
-        </article>
+        </div>
+  </div>
+</div>
 
-    </section>
+          
+              
 
-</section>
+        
 
 
 

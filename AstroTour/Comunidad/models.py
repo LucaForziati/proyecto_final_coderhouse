@@ -15,6 +15,9 @@ class Posts(models.Model):
     texto = models.TextField()
     imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
 
+    def get_like_count(self):
+        return self.likes_set.all().count()
+
 class Comentario(models.Model):
 
     post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments')

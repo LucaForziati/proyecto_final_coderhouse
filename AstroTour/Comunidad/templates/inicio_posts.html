@@ -2,22 +2,34 @@
 
 {% block ContenidoQueCambia %}
 
-
+<a type="btn" class="btn btn-secondary" href="{% url 'Crear_posts' %}">Crear post</a>
 {% for posteo in post %}
-<h2 class="card-title">{{posteo.nombre_post}}</h2>
-<h3 class="card-subtitle">{{posteo.descripcion}}</h3>
-<p class="post-meta">Escrito por {{posteo.usuario}}</p>
 
-<p>
-    <span><i class="fas fa-thumbs-up"></i>{{posteo.get_like_count}}</span>
-    <span><i class="fas fa-comments"></i>{{posteo.get_comment_count}}</span>
+<section>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                <div class="post-preview">
+                    <a href="{% url 'Mostrar_posts' posteo.pk %}">
+                        <h2 class="post-title">{{posteo.nombre_post}}</h2>
+                        <h3 class="post-subtitle">{{posteo.descripcion}}</h3>
+                    </a>
+                    
+                        <p class="post-meta">
+                            Escrito por
+                            <a href="#!">{{posteo.usuario}}</a>
+                        </p> 
+                    <p>
+                        <span><i class="fas fa-thumbs-up"></i>{{posteo.get_like_count}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-</p>
-<p class="card-text">{{posteo.texto}}</p>  
-<a class="btn btn-secondary" style= margin:10px; href="{% url 'Mostrar_posts' posteo.pk %}">Leer más →</a>
 {% endfor %}
-
-
 
 
 {% endblock ContenidoQueCambia %}

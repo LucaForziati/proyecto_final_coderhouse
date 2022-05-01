@@ -1,7 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import Post_formulario, Comentarios_formulario
-from .models import Posts, Comentario
+from .models import Posts, Comentario, Likes
 from Usuario.models import Astroturista
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
@@ -129,3 +129,17 @@ class Posts_update(UpdateView):
     success_url = "/comunidad/posteos"
     fields = ['nombre_post', 'descripcion', 'texto', 'imagen']
     template_name = "editar_post.html"
+
+
+def dar_like(request,id):
+
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)  
+
+    post = Posts.objects.get(id=id)
+    likes = Likes.objects.filter(usuario=astroturista, post=post)
+    if likes.exists():
+        likes.delete()
+        return redirect('Mostrar_posts', id=id)
+    Likes.objects.create(usuario=astroturista, post=post)
+    return redirect('Mostrar_posts', id=id)
