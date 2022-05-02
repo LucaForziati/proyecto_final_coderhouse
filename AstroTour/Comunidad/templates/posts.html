@@ -14,7 +14,7 @@
                   <!-- Post title-->
                   <h1 class="fw-bolder mb-1">{{post.nombre_post}}</h1>
                   <!-- Post meta content-->
-                  <div class="text-muted fst-italic mb-2">Creado por {{post.usuario}}</div>
+                  <div class="text-muted fst-italic mb-2">Creado por <a href="{% url 'Perfil-astro' post.usuario.user.pk %}">{{post.usuario}}</a></div>
               </header>
               <!-- Preview image figure-->
               <figure class="mb-4"><img class="img-fluid rounded" src="{{post.imagen.url}}" alt="..." /></figure>

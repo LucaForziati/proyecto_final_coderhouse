@@ -83,10 +83,8 @@ def posteos(request):
         'post': post,
         'posteos': posteos
     }
-    if not request.user.is_authenticated:
-        return render(request, 'login.html', contexto)
-    else:
-        return render(request, 'inicio_posts.html', contexto)
+
+    return render(request, 'inicio_posts.html', contexto)
 
 def ver_posteos(request, id):
         

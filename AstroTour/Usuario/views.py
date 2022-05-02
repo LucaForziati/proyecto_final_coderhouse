@@ -155,7 +155,7 @@ def editar_perfil(request):
 
         return render(request, "editar_perfil.html", {'mi_formulario': mi_formulario, 'usuario': usuario, 'astroturista': mi_formulario2})
 
-
+@login_required
 def perfil_propio(request):
 
     astroturista = Astroturista.objects.get(user = request.user)
@@ -163,4 +163,11 @@ def perfil_propio(request):
     contexto = astroturista
 
     return render(request, "perfil.html", {"astroturista": contexto})
+
+@login_required
+def perfil_astroturistas(request, id):
+
+    perfil = Astroturista.objects.get(user = id)
+    
+    return render(request,'perfil_astroturistas.html', {'perfil': perfil})
 

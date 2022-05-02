@@ -2,7 +2,12 @@
 
 {% block ContenidoQueCambia %}
 
-<a type="btn" class="btn btn-secondary" href="{% url 'Crear_posts' %}">Crear post</a>
+
+{% if request.user.is_authenticated %}
+<a type="btn" class="btn btn-secondary" href="{% url 'Crear_posts' %}">Crear post</a> 
+{% endif %}
+    
+
 {% for posteo in post %}
 
 <section>
@@ -17,7 +22,7 @@
                     </a>
                         <p class="post-meta">
                             Escrito por
-                            <a href="#!">{{posteo.usuario}}</a>
+                            <a href="{% url 'Perfil-astro' posteo.usuario.user.pk %}">{{posteo.usuario}}</a>
                         </p> 
                     <p>
                         <span><i class="fas fa-thumbs-up"></i>{{posteo.get_like_count}}</span>

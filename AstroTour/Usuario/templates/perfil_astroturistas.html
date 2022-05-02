@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+{% load static %}
+{% block ContenidoQueCambia %}
+<section>
+        <div class="">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-3">
+                    <div class="p-5"><img class="img rounded-circle" src="{{perfil.avatar.url}}" width="280" height="250" alt="..." /></div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="p-2">
+                        <h2 class="display-4">{{perfil.user.first_name}} {{perfil.user.last_name}}</h2>
+                        <p>Pasaporte espacial: {{perfil.pasaporte_espacial}}</p>
+                        <p>Peso terrestre: {{perfil.peso}} Kg</p>
+                        <p>Email: {{perfil.user.email}}</p>
+                        <p>Ultima vez en linea: {{perfil.user.last_login}}</p>
+                        <p>Unido: {{perfil.user.date_joined}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</section>
+
+{% endblock ContenidoQueCambia %}

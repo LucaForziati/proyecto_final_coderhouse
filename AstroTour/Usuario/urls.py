@@ -10,4 +10,5 @@ urlpatterns = [
     path('editar', views.editar_perfil, name = 'Editar_perfil'),
     path('register-super', views.register_superusuario, name = 'Register_super'),
     path('perfil', views.perfil_propio, name = 'Perfil_propio'),
+    path('perfil-astro/<id>',views.perfil_astroturistas,name="Perfil-astro"),
 ]
