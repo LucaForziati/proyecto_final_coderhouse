@@ -37,7 +37,7 @@ class Ticket_abordaje(models.Model):
     usuario = models.ForeignKey(Astroturista, on_delete= models.CASCADE)
     destino = models.ForeignKey(Destino, on_delete= models.CASCADE)
     vehiculo = models.ForeignKey(Vehiculo, on_delete= models.CASCADE)
-    precio = models.IntegerField(blank = True, null = True)
+    precio = models.IntegerField(blank = True, null = True) 
     tiempo = models.FloatField(blank = True, null = True)
     fecha = models.DateField(blank = True, null = True)
     codigo_qr = models.ImageField(upload_to = "imagen", null = True, blank = True)

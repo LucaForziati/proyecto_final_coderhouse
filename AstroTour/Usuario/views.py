@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 
+from Viajes.models import Ticket_abordaje
+
 from .models import Astroturista
 
 from .forms import Astroturista_formulario, UserEditForm, AstroturistaEditForm, SuperUserCreationForm
@@ -162,12 +164,29 @@ def perfil_propio(request):
 
     contexto = astroturista
 
-    return render(request, "perfil.html", {"astroturista": contexto})
+    cantidad_viajes = Ticket_abordaje.objects.filter(usuario = astroturista).count()
+
+    viajes_kilometros_acumulados = Ticket_abordaje.objects.filter(usuario = astroturista)
+    kilometros_acumulados = 0
+
+    for viaje in viajes_kilometros_acumulados:
+        kilometros_acumulados += viaje.destino.kilometros
+    
+
+    return render(request, "perfil.html", {"astroturista": contexto, "cantidad_viajes": cantidad_viajes, "kilometros_acumulados": kilometros_acumulados})
 
 @login_required
 def perfil_astroturistas(request, id):
 
     perfil = Astroturista.objects.get(user = id)
+
+    cantidad_viajes = Ticket_abordaje.objects.filter(usuario = perfil).count()
+
+    viajes_kilometros_acumulados = Ticket_abordaje.objects.filter(usuario = perfil)
+    kilometros_acumulados = 0
+
+    for viaje in viajes_kilometros_acumulados:
+        kilometros_acumulados += viaje.destino.kilometros
     
-    return render(request,'perfil_astroturistas.html', {'perfil': perfil})
+    return render(request,'perfil_astroturistas.html', {'perfil': perfil, "cantidad_viajes": cantidad_viajes, "kilometros_acumulados": kilometros_acumulados})
 
