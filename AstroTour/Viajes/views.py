@@ -21,6 +21,8 @@ from django.contrib.auth.decorators import user_passes_test
 
 from django.views.generic.edit import DeleteView, UpdateView
 
+import qrcode
+
 # Create your views here.
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
@@ -28,8 +30,9 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_superuser
 
 def padre_template(request):
-
+    
     return render(request, "padre_viaje.html")
+    
 
 def inicio(request):
 
@@ -58,6 +61,7 @@ def crear_vehiculos(request):
             vehiculo.save()
 
             vehiculo_contexto = vehiculo_informacion
+
 
             return render(request, "padre_viaje.html", {"vehiculo_contexto": vehiculo_contexto})
 
@@ -168,6 +172,7 @@ def crear_ticket(request):
             ticket.tiempo = ticket.destino.kilometros / ticket.vehiculo.velocidad
             ticket.save()
 
+
             tiempo = (ticket.tiempo*60) % 60   
 
             vuelos = Vuelos (   
@@ -195,9 +200,16 @@ def crear_ticket(request):
                 vuelo_ya_creado.asientos_disponibles -= 1
                 vuelo_ya_creado.save()
             
-            ticket_contexto = ticket_informacion
+            qr = qrcode.QRCode(
+                version = 1,
+                error_correction = qrcode.constants.ERROR_CORRECT_H,
+                box_size = 10,
+                border = 4
+            )
+            
 
-            return render(request, "padre.html", {"ticket": ticket_contexto, "precio": ticket.precio, "tiempo": tiempo})
+
+            return render(request, "pagos.html", )
 
     else: 
 

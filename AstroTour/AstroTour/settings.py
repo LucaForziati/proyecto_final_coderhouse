@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'Usuario',
     'Viajes',
     'Comunidad',
-    'mathfilters'
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

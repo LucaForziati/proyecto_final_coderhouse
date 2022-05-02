@@ -32,8 +32,8 @@
                 {% else %}
                   Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
                 {% endif %}
-
-                  
+                <br>
+                Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" alt="...">
             </div>
           </div>
         </div>

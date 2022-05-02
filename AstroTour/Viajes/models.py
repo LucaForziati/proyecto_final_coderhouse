@@ -1,6 +1,11 @@
 from django.db import models
 from Usuario.models import Astroturista 
 from django.contrib.auth.models import User
+
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 # Create your models here.
 
 class Destino(models.Model):
@@ -35,9 +40,21 @@ class Ticket_abordaje(models.Model):
     precio = models.IntegerField(blank = True, null = True)
     tiempo = models.FloatField(blank = True, null = True)
     fecha = models.DateField(blank = True, null = True)
+    codigo_qr = models.ImageField(upload_to = "imagen", null = True, blank = True)
 
     def __str__(self):
         return f"Ticket Nº {self.id} - {self.usuario} "
+
+    def save(self, *args, **kwargs):
+        qrcode_img = qrcode.make(f'Ticket id: {self.id}')
+        canvas = Image.new('RGB', (290, 290), 'white')
+        canvas.paste(qrcode_img)
+        fname = f'qr_code-{self.usuario}.png'
+        buffer = BytesIO()
+        canvas.save(buffer,'PNG')
+        self.codigo_qr.save(fname, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)
 
 class Vuelos(models.Model):
 
