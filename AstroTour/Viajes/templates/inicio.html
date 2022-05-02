@@ -1,41 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>One Page Wonder - Start Bootstrap Template</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-    </head>
-    <body id="page-top">
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-            <div class="container px-5">
-                <a class="navbar-brand" href="#page-top">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#!">Sign Up</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
         <!-- Header-->
         <header class="masthead text-center text-white">
             <div class="masthead-content">
                 <div class="container px-5">
-                    <h1 class="masthead-heading mb-0">One Page Wonder</h1>
-                    <h2 class="masthead-subheading mb-0">Will Rock Your Socks Off</h2>
-                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">Learn More</a>
+                    <h1 class="masthead-heading mb-0">Astrotour</h1>
+                    <h2 class="masthead-subheading mb-2">Tu sitio web para obtener pasajes interplanetarios</h2>
+                    <a class="btn btn-primary btn-xl rounded-pill mt-5" href="{% url 'Register' %}">¡Create tu cuenta!</a>
                 </div>
             </div>
             <div class="bg-circle-1 bg-circle"></div>
@@ -48,12 +19,12 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="assets/img/01.jpg" alt="..." /></div>
+                        <div class="p-5"><a href="{% url 'Mostrar_vehiculos' %}"><img class="img-fluid rounded-circle" src="https://elcomercio.pe/resizer/8iXygzJVrYySQ6IHscebTQeN5fU=/1200x1200/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/H65SORXLWRCZ3CTNIJXU77WFTA.jpg" width="402" height="402" alt="..." /></a></div>
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
-                            <h2 class="display-4">For those about to rock...</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <h2 class="display-4">Conozca nuestros vehiculos</h2>
+                            <p>Contamos con una flota de vehiculos de ultima generaciòn capaz de llevarle a multiples destinos a una velocidad como nunca se ha visto en la historia de la humanidad.</p>
                         </div>
                     </div>
                 </div>
@@ -64,12 +35,12 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="assets/img/02.jpg" alt="..." /></div>
+                        <div class="p-5"><a href="{% url 'Mostrar_destinos' %}"><img class="img rounded-circle" src="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2017/10/11155058/marte-dubai-1.jpg" width="402" height="402" alt="..." /></a></div>
                     </div>
                     <div class="col-lg-6">
                         <div class="p-5">
-                            <h2 class="display-4">We salute you!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <h2 class="display-4">Conozca nustros destinos</h2>
+                            <p>Gracias a multiples convenios internacionales e interplanetarios ofrecemos una amplia gama de destinos a unos clicks de distancia.</p>
                         </div>
                     </div>
                 </div>
@@ -80,24 +51,56 @@
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 order-lg-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="assets/img/03.jpg" alt="..." /></div>
+                        <div class="p-5"><a href="{% url 'Ver_post' %}"><img class="img rounded-circle" src="https://wonderfulengineering.com/wp-content/uploads/2021/10/iss040e099399.jpg" width="402" height="402" alt="..." /></a></div>
                     </div>
                     <div class="col-lg-6 order-lg-1">
                         <div class="p-5">
-                            <h2 class="display-4">Let there be rock!</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+                            <h2 class="display-4">Ingrese en nuestra Comunidad</h2>
+                            <p>Un sitio donde todos los usuarios podran interactuar entre si, compartiendo sus experiencias y demas noticias. Ademas, nuestro equipo de expertos publican constantemente informacion sobre nuestra plataforma de vuelos y demas noticias.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-black">
-            <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Your Website 2022</p></div>
-        </footer>
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
-    </body>
-</html>
+        <div class="container px-6">  
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://images8.alphacoders.com/686/thumb-1920-686692.jpg" class="d-block w-100" alt="..." width="500" height="700">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>First slide label</h5>
+                            <p>Some representative placeholder content for the first slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://p4.wallpaperbetter.com/wallpaper/135/266/576/download-3840x2400-stars-space-glow-planet-wallpaper-preview.jpg" class="d-block w-100" alt="..." width="500" height="700">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Second slide label</h5>
+                            <p>Some representative placeholder content for the second slide.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://www.xtrafondos.com/wallpapers/planetas-6514.jpg" class="d-block w-100" alt="..." width="500" height="700">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>Third slide label</h5>
+                            <p>Some representative placeholder content for the third slide.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+              </div>     
+            </div>  
+            <hr class="divider" />
+{% endblock ContenidoQueCambia %}
