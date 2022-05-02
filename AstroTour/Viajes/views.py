@@ -31,6 +31,10 @@ def padre_template(request):
 
     return render(request, "padre_viaje.html")
 
+def inicio(request):
+
+    return render(request, "inicio.html")
+
 
 @user_passes_test(lambda u: u.is_superuser)
 def crear_vehiculos(request):
