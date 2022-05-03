@@ -112,11 +112,11 @@ def register_superusuario(request):
                 astroturista.user = user
                 astroturista.save()
 
-                return render(request, "login.html")
+                return render(request, "inicio.html")
 
             else:
 
-                return render(request, "login.html")
+                return render(request, "inicio.html")
 
         else:
             
@@ -208,32 +208,22 @@ def contactanos(request):
 
     if request.method == "POST":
 
-        email_contacto = request.POST["contactenos_email"]
-        nombre_contacto = request.POST["contactenos_nombre"]
-        apellido_contacto = request.POST["contactenos_apellido"]
-        texto_contacto = request.POST["contactenos_texto"]
+        email_contacto = request.POST["contacto_email"]
+        nombre_contacto = request.POST["contacto_nombre"]
+        apellido_contacto = request.POST["contacto_apellido"]
+        texto_contacto = request.POST["contacto_texto"]
 
         asunto_mail = f"Se ha generado una consulta de {nombre_contacto} {apellido_contacto}"
-        mensaje = f"{texto_contacto} --- {email_contacto}"
+        mensaje = f"{texto_contacto} --- Mail: {email_contacto}"
         email_from = email_contacto 
         recipent_list = ["astrotour2000@gmail.com"]
         send_mail(asunto_mail, mensaje, email_from, recipent_list)
+
+        return render(request, "inicio.html")
 
     else: 
 
         return render(request, "contactenos.html")
 
 
-def contacto_inconvenientes(request):
-
-    user1 = request.user
-    astroturista = Astroturista.objects.get(user = user1)  
-
-    asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
-    mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
-    email_from = settings.EMAIL_HOST_USER 
-    recipent_list = [astroturista.email]
-    send_mail(asunto_mail, mensaje, email_from, recipent_list)
-
-    return render(request, "ticket_generado.html", {"ticket": ticket_contexto})   
 
