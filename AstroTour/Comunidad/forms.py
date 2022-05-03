@@ -12,7 +12,7 @@ class Post_formulario(forms.ModelForm):
             'texto':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese su comentario',
+                    'placeholder': 'Ingrese texto del post',
                     'cols': '2px',
                     'rows': '2px'
                 }
