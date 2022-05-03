@@ -3,6 +3,10 @@
 {% block ContenidoQueCambia %}
 
 <section class="page-section" id="services">
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="text" placeholder="Introduzca el numero de ticket" id = "numero_ticket" name = "numero_ticket"></input>
+        <input type="submit" value = "Buscar">
+    </form>
     <hr class="divider" />
 
     <h4>Tickets pasados:</h4>

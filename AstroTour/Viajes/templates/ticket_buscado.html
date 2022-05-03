@@ -1,0 +1,59 @@
+{% extends "padre.html" %}
+{% load mathfilters %}
+{% block ContenidoQueCambia %}
+
+<div class="accordion accordion-flush" id="accordionFlushExample">
+    <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ticket.id}}" aria-expanded="false" aria-controls="flush-collapseOne">
+            {{ticket_contexto.id}} - Usuario: {{ticket_contexto.usuario}}
+        </button>
+    </h2>
+    <div id="flush-collapseOne{{ticket.id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+        <div class="accordion-body">  
+            Usuario: {{ticket_contexto.usuario}} <br>                      
+            Destino: {{ticket_contexto.destino}} <br>
+            Vehiculo: {{ticket_contexto.vehiculo}} <br>
+            Precio: ${{ticket_contexto.precio}} <br>
+            Fecha: {{ticket_contexto.fecha}} <br></div>
+            {% if ticket_contexto.tiempo < 60 %}
+                Tiempo viaje: {{ticket_contexto.tiempo}} S
+            {% elif ticket_contexto.tiempo > 60 and ticket_contexto.tiempo < 3600%}
+                Tiempo viaje: {{ticket_contexto.tiempo|intdiv:60}} M, {{ticket_contexto.tiempo|mod:60}} S
+            {% else %}
+                Tiempo viaje: {{ticket_contexto.tiempo|intdiv:3600}} H, {{ticket_contexto.tiempo|mod:3600|intdiv:60}}  M, {{ticket_contexto.tiempo|mod:3600|mod:60}} S
+            {% endif %}
+            <br>
+            Codigo Qr: <img src= "{{ticket_contexto.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
+            <br>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Eliminar
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Eliminar {{ticket_contexto.id}}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Esta seguro que desea eliminar el ticket {{ticket_contexto.id}} perteneciente al usuario {{ticket_contexto.usuario}}?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <form action="{% url 'Eliminar_admin_ticket' ticket_contexto.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-primary">Delete</button>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            
+        <br>
+    </div>
+    </div>
+</div>
+
+
+{% endblock ContenidoQueCambia %}

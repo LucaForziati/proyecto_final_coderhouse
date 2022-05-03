@@ -20,4 +20,6 @@ urlpatterns = [
     path("", views.inicio, name = "Inicio"),
     path("tickets-admin", views.ver_tickets_admin, name = "Tickets-admin"),
     path("editar-ticket-admin/<pk>", views.Ticket_admin_delete.as_view(), name = "Eliminar_admin_ticket"),
+    path("eliminar-ticket/<pk>", views.Ticket_delete.as_view(), name = "Eliminar_ticket"),
+    path("buscar-ticket", views.buscar_ticket, name = "Buscar_ticket"),
 ]

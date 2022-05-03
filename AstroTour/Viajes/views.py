@@ -250,6 +250,12 @@ def mostrar_tickets_astroturista(request):
 
     return render(request, "mostrar_ticket_usuario.html", contexto)
 
+class Ticket_delete(DeleteView):
+
+    model = Ticket_abordaje
+    success_url = "/viaje/ticket-usuario"
+    template_name = "mostrar_tickets_usuario.html"
+
 
 def prueba_pagos(request):
 
@@ -258,10 +264,41 @@ def prueba_pagos(request):
 @user_passes_test(lambda u: u.is_superuser)
 def ver_tickets_admin(request):
 
-    tickets = Ticket_abordaje.objects.all()
-    now = datetime.now().date()
+    if request.method == "POST":
+        id_ticket = request.POST["numero_ticket"]
+        dato_ticket = Ticket_abordaje.objects.get(id = id_ticket)
 
-    return render(request, "ver_tickets_admin.html", {"tickets": tickets, "fecha_hoy": now})
+        print("++++++++++")
+        print(dato_ticket)
+
+        ticket_contexto = dato_ticket
+
+        return render(request, "ticket_buscado.html", {"ticket_contexto": ticket_contexto})
+    else:
+        
+
+
+        tickets = Ticket_abordaje.objects.all()
+        now = datetime.now().date()
+
+        return render(request, "ver_tickets_admin.html", {"tickets": tickets, "fecha_hoy": now})
+
+@user_passes_test(lambda u: u.is_superuser)
+def buscar_ticket(request):
+
+    if request.method == "POST":
+        id_ticket = request.POST["numero_ticket"]
+        dato_ticket = Ticket_abordaje.objects.get(id = id_ticket)
+
+        print("++++++++++")
+        print(dato_ticket)
+
+        ticket_contexto = dato_ticket
+
+        return render(request, "ticket_buscado.html", {"ticket_contexto": ticket_contexto})
+    else:
+        
+        return render(request, "ver_tickets_admin.html")
 
 
 
