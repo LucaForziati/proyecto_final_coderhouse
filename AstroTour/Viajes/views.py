@@ -1,3 +1,4 @@
+from email.message import EmailMessage
 from django.shortcuts import render
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -22,6 +23,10 @@ from django.contrib.auth.decorators import user_passes_test
 from django.views.generic.edit import DeleteView, UpdateView
 
 import qrcode
+
+from django.conf import settings
+
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -219,6 +224,12 @@ def crear_ticket(request):
             
             
             ticket_contexto = ticket
+
+            asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
+            mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
+            email_from = settings.EMAIL_HOST_USER 
+            recipent_list = [astroturista.user.email]
+            send_mail(asunto_mail, mensaje, email_from, recipent_list)
 
             return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
 
