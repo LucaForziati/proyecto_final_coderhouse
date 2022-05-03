@@ -1,12 +1,25 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
-<form action="" method = "POST" enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {{crear_destino_formulario.as_p}}
-    
-    <button type = "submit">Crear destino</button>
+<div class="container mt-5">
+    <div class="row">
+        <h3>Crear destino</h3>
+        
+        {% if crear_destino_formulario.errors %}
 
-</form>
+            <p style="color: red">Estan mal los datos</p>
+            
+        {% endif %}
+            
+        <form action="" method = "POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{crear_destino_formulario.as_p}}
+            
+            <button type = "submit">Crear destino</button>
+
+        </form>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

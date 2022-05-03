@@ -1,14 +1,19 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
+<div class="container mt-5">
+    <div class="row">
+        <h3>Iniciar sesion</h3>
+        <form action="" method = "POST">
 
-<form action="" method = "POST">
+            {% csrf_token %}
 
-    {% csrf_token %}
+            {{form.as_p}}
 
-    {{form.as_p}}
+            <button type = "submit">Iniciar Sesion</button>
 
-    <button type = "submit">Iniciar Sesion</button>
-
-</form>
+        </form>
+    </div>
+    <hr class="divider" />
+</div>
 
 {% endblock ContenidoQueCambia %}

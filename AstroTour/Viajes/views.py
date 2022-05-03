@@ -21,6 +21,8 @@ from django.contrib.auth.decorators import user_passes_test
 
 from django.views.generic.edit import DeleteView, UpdateView
 
+import qrcode
+
 # Create your views here.
 
 class SuperuserRequiredMixin(UserPassesTestMixin):
@@ -28,8 +30,9 @@ class SuperuserRequiredMixin(UserPassesTestMixin):
         return self.request.user.is_superuser
 
 def padre_template(request):
-
+    
     return render(request, "padre_viaje.html")
+    
 
 def inicio(request):
 
@@ -53,11 +56,13 @@ def crear_vehiculos(request):
                 velocidad = vehiculo_informacion["velocidad"],
                 precio_x_km = vehiculo_informacion["precio_x_km"],
                 imagen = vehiculo_informacion["imagen"],
+                resumen = vehiculo_informacion["resumen"],
                 descripcion = vehiculo_informacion["descripcion"]
                 )
             vehiculo.save()
 
             vehiculo_contexto = vehiculo_informacion
+
 
             return render(request, "padre_viaje.html", {"vehiculo_contexto": vehiculo_contexto})
 
@@ -73,6 +78,7 @@ class Vehiculos_vista(ListView):
     template_name = "mostrar_vehiculos.html"
 
 
+
 class Vehiculos_delete(DeleteView):
 
     model = Vehiculo
@@ -85,6 +91,13 @@ class Vehiculos_update(UpdateView):
     success_url = "/viaje/mostrar-vehiculos"
     fields = ['nombre_vehiculo', 'cantidad_pasajeros', 'velocidad', 'precio_x_km', 'imagen', 'descripcion']
     template_name = "editar_vehiculo.html"
+
+def ver_vehiculo(request, id):
+        
+    vehiculos = Vehiculo.objects.get(id=id)
+
+    return render(request,'ver_vehiculo.html', {'vehiculos': vehiculos})
+
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -104,6 +117,7 @@ def crear_destino(request):
                 kilometros = destino_informacion["kilometros"],
                 gravedad = destino_informacion["gravedad"],
                 imagen = destino_informacion["imagen"],
+                resumen = destino_informacion["resumen"],
                 descripcion = destino_informacion["descripcion"]
                 )
             destino.save()
@@ -117,6 +131,13 @@ def crear_destino(request):
         destino_formulario = Destino_formulario()
 
         return render(request, "crear_destino.html", {"crear_destino_formulario": destino_formulario})
+
+
+def ver_destino(request, id):
+        
+    destinos = Destino.objects.get(id = id)
+
+    return render(request,'ver_destino.html', {'destinos': destinos})
 
 
 class Destinos_vista(ListView):
@@ -168,6 +189,7 @@ def crear_ticket(request):
             ticket.tiempo = ticket.destino.kilometros / ticket.vehiculo.velocidad
             ticket.save()
 
+
             tiempo = (ticket.tiempo*60) % 60   
 
             vuelos = Vuelos (   
@@ -195,15 +217,18 @@ def crear_ticket(request):
                 vuelo_ya_creado.asientos_disponibles -= 1
                 vuelo_ya_creado.save()
             
-            ticket_contexto = ticket_informacion
+            
+            ticket_contexto = ticket
 
-            return render(request, "padre.html", {"ticket": ticket_contexto, "precio": ticket.precio, "tiempo": tiempo})
+            return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
 
     else: 
 
         ticket_formulario = Ticket_formulario()
+        vehiculos = Vehiculo.objects.all()
+        destinos = Destino.objects.all()
 
-        return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario})
+        return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario, "vehiculos": vehiculos, "destinos": destinos})
 
 
 
@@ -212,11 +237,18 @@ class Tickets_vista(ListView, LoginRequiredMixin):
     model = Ticket_abordaje
     template_name = "mostrar_tickets.html"
 
+class Ticket_admin_delete(DeleteView):
+
+    model = Ticket_abordaje
+    success_url = "/viaje/tickets-admin"
+    template_name = "ver_tickets_admin.html"
+
 
 class Vuelos_vista(SuperuserRequiredMixin, ListView):
 
     model = Vuelos
     template_name = "mostrar_vuelos.html"
+
 
 @login_required
 def mostrar_tickets_astroturista(request):
@@ -232,39 +264,40 @@ def mostrar_tickets_astroturista(request):
 
     return render(request, "mostrar_ticket_usuario.html", contexto)
 
-# def crear_vuelo_vip(request):
+class Ticket_delete(DeleteView):
 
-#     if request.method == "POST":
+    model = Ticket_abordaje
+    success_url = "/viaje/ticket-usuario"
+    template_name = "mostrar_tickets_usuario.html"
 
-#         vuelo_formulario = Vuelos_formulario(request.POST, request.FILES)
-
-#         if vuelo_formulario.is_valid():
-
-#             vuelo_informacion = vuelo_formulario.cleaned_data
-            
-#             vuelo = Vuelos (
-#                 vuelo_ticket = vuelo_informacion["vuelo_ticket"],
-#                 vehiculo = vuelo_informacion["vehiculo"],
-#                 numero_pasajeros = vuelo.vehiculo.cantidad_pasajeros - 1,
-#                 destino = vuelo_informacion["destino"],
-#                 fecha = vuelo_informacion["fecha"],
-#                 tiempo_viaje = vuelo_informacion["tiempo_viaje"]
-#                 )
-#             vuelo.save()
-
-#             vuelo_contexto = vuelo_informacion
-
-#             return render(request, "padre.html", {"vuelo_contexto": vuelo_contexto})
-
-#     else: 
-
-#         vuelo_formulario = Vuelos_formulario()
-
-#         return render(request, "crear_vuelo.html", {"crear_vuelo_formulario": vuelo_formulario})
 
 def prueba_pagos(request):
 
     return render(request, "pagos.html")
+
+@user_passes_test(lambda u: u.is_superuser)
+def ver_tickets_admin(request):
+
+    if request.method == "POST":
+        id_ticket = request.POST["numero_ticket"]
+        dato_ticket = Ticket_abordaje.objects.get(id = id_ticket)
+
+        print("++++++++++")
+        print(dato_ticket)
+
+        ticket_contexto = dato_ticket
+
+        return render(request, "ticket_buscado.html", {"ticket_contexto": ticket_contexto})
+    else:
+        
+
+
+        tickets = Ticket_abordaje.objects.all()
+        now = datetime.now().date()
+
+        return render(request, "ver_tickets_admin.html", {"tickets": tickets, "fecha_hoy": now})
+
+
 
 
 

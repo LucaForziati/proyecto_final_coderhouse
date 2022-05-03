@@ -1,31 +1,81 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
-<form action="" method = "POST" enctype="multipart/form-data">
+<div class="container mt-5">
+    <div class="row">
+        <h3>¡Saque su ticket!</h3>
+        <form action="" method = "POST" enctype="multipart/form-data"> {% csrf_token %}
+            <section class="page-section" id="services">
+                <div class="container px-4 px-lg-5">
+                    <hr class="divider" />
+                    <h5>Seleccione su destino</h5>
+                    <div class="row gx-4 gx-lg-5">
+                      
+                        {% for destino in destinos %}
+                            <div class="col-lg-3 col-md-6 text-center">
+                                <div class="card" style="width: 18rem;">
+                                 <img src= "{{destino.imagen.url}}" class="text-center" width="286" height="200" alt="...">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{destino.lugar}}</h5>
+                                    <p class="card-text">
+                                        Ubicacion: {{destino.ubicacion}} <br>
+                                        Distancia: {{destino.kilometros}} km <br>
+                                        Gravedad: {{destino.gravedad}} <br>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-    {% csrf_token %}
-    {{crear_ticket_formulario.as_p}}
-    <p>Ingrese cantidad de acompañantes</p>
-    <select name="acompaniantes" id = "acompaniantes">
-        
-        <option>0</option>
-        
-        <option>1</option>
-        
-        <option>2</option>
+                    </div>
+                    <p></p>
+                    Seleccione destino aqui: {{crear_ticket_formulario.destino}}
+                    
+                </div>
+            </section>
+            <section class="page-section" id="services">
+                <div class="container px-4 px-lg-5">
+                    <hr class="divider" />
+                    <h5>Seleccione su vehiculo</h5>
+                    <div class="row gx-4 gx-lg-5">
+                      
+                        {% for vehiculo in vehiculos %}
+                            <div class="col-lg-3 col-md-6 text-center">
+                                <div class="card" style="width: 18rem;">
+                                 <img src= "{{vehiculo.imagen.url}}" class="text-center" width="286" height="200" alt="...">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{vehiculo.nombre_vehiculo}}</h5>
+                                    <p class="card-text">
+                                        Cantidad pasajeros: {{vehiculo.cantidad_pasajeros}} <br>
+                                        Velocidad: {{vehiculo.velocidad}} km/h <br>
+                                        Precio por kilometro: ${{vehiculo.precio_x_km}} <br>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
 
-        <option>3</option>
+                    </div>
+                    <p></p>
+                    Seleccione vehiculo aqui: {{crear_ticket_formulario.vehiculo}}
+                    
+                </div>
+            </section>
 
-        <option>4</option>
-        
-    </select>
-    <br>
-    
-    
-    <button type = "submit">Crear ticket</button>
-    
-        
-    
+            <section class="page-section" id="services">
+                <div class="container px-4 px-lg-5">
+                    <hr class="divider" />
+                    <h5>Seleccione fecha</h5>
+                    Seleccione fecha aqui: {{crear_ticket_formulario.fecha}}
+                    <hr class="divider" />
+                </div>
+            </section>
 
-</form>
+            
+            
+            <button type="submit" class="btn btn-primary">Crear ticket</button>
+        
+        </form>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

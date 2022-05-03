@@ -1,12 +1,17 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
-<form action="" method = "POST" enctype="multipart/form-data">
+<div class="container mt-5">
+    <div class="row">
+        <h3>Crear vehiculo</h3>
+        <form action="" method = "POST" enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {{crear_vehiculo_formulario.as_p}}
-    
-    <button type = "submit">Crear vehiculo</button>
+            {% csrf_token %}
+            {{crear_vehiculo_formulario.as_p}}
+            
+            <button type = "submit">Crear vehiculo</button>
 
-</form>
+        </form>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

@@ -16,6 +16,25 @@ class Astroturista_formulario(forms.ModelForm):
 
         model = Astroturista
         fields = ('pasaporte_espacial','peso', 'avatar')
+        widgets = {
+            'pasaporte_espacial':forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese nombre del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'peso':forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese ubicacion del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+        }
+        
 
 class Acompañantes_formulario(forms.ModelForm):
 
@@ -36,6 +55,46 @@ class UserEditForm(UserCreationForm):
         model = User
         fields = [ 'email', 'password1', 'password2'] 
         help_texts = {k:"" for k in fields}
+
+class UserCreationForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ("username", "email", "first_name", "last_name")
+        widgets = {
+            'username':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese nombre del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'email':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese ubicacion del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'first_name':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese kilometros al destino (desde la tierra)',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'last_name':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese gravedad del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+        }
     
 
 
@@ -79,6 +138,56 @@ class SuperUserCreationForm(forms.ModelForm):
         model = User
         fields = ("username", "email", "first_name", "last_name", "is_superuser", "is_staff")
         field_classes = {"username": UsernameField, "email": forms.EmailField, "first_name": forms.CharField, "last_name": forms.CharField, "is_superuser": forms.BooleanField, "is_staff": forms.BooleanField}
+        widgets = {
+            'username':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese nombre del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'email':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese ubicacion del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'first_name':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese kilometros al destino (desde la tierra)',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'last_name':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese gravedad del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'is_superuser': forms.CheckboxInput(
+                attrs={
+                    'class': 'form-check-input',
+                    'for': 'form-check-input',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'is_staff': forms.CheckboxInput(
+                attrs={
+                    'class': 'form-check-input',
+                    'for': 'form-check-input',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

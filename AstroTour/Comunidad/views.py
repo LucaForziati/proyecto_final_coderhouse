@@ -101,10 +101,7 @@ def ver_posteos(request, id):
                 comentarioNuevo.author = astroturista
                 comentarioNuevo.post = post
                 comentarioNuevo.save()
-            else:
-                return HttpResponse("Error, comentario no enviado :( envienos un mensaje en la sección sobre nosotros")
-        else:
-            return HttpResponse("Necesitar iniciar sesión para comentar!")
+
     else:
         form_comentario = Comentarios_formulario()
     return render(request,'posts.html', {'post':post, 'comentario':comentario, 'form_comentario': form_comentario, 'astroturista': astroturista})

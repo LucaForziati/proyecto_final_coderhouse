@@ -7,39 +7,64 @@
     <h4>Viajes pasados:</h4>
     {% for ticket in tickets_astrotusrita %}
     
-    {% if ticket.fecha < fecha_hoy %}
+      {% if ticket.fecha < fecha_hoy %}
       
-      <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="flush-headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ticket.id}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                {{ticket.destino}} - Fecha: {{ticket.fecha}}
-            </button>
-          </h2>
-          <div id="flush-collapseOne{{ticket.id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">  
-                Usuario: {{ticket.usuario}} <br>                      
-                Destino: {{ticket.destino}} <br>
-                Vehiculo: {{ticket.vehiculo}} <br>
-                Precio: ${{ticket.precio}} <br>
-                Timepo viaje: {{ticket.tiempo}} <br>
-                Fecha: {{ticket.fecha}} <br>
-                
-                {% if ticket.tiempo < 60 %}
-                  Tiempo viaje: {{ticket.tiempo}} S
-                {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
-                  Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
-                {% else %}
-                  Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
-                {% endif %}
-
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ticket.id}}" aria-expanded="false" aria-controls="flush-collapseOne">
+                  -{{ticket.destino}} - Fecha: {{ticket.fecha}}
+              </button>
+            </h2>
+            <div id="flush-collapseOne{{ticket.id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body">  
+                  Usuario: {{ticket.usuario}} <br>                      
+                  Destino: {{ticket.destino}} <br>
+                  Vehiculo: {{ticket.vehiculo}} <br>
+                  Precio: ${{ticket.precio}} <br>
+                  Fecha: {{ticket.fecha}} <br>
                   
+                  {% if ticket.tiempo < 60 %}
+                    Tiempo viaje: {{ticket.tiempo}} S
+                  {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
+                    Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
+                  {% else %}
+                    Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
+                  {% endif %}
+                  <br>
+                  Tu peso en tu destino serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
+                  <br>
+                  Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
+
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ticket.id}}">
+                    Eliminar
+                    </button>
+                    <div class="modal fade" id="exampleModal{{ticket.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Eliminar {{ticket.id}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Esta seguro que desea eliminar el ticket {{ticket.id}} con destino {{ticket.destino}}?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="{% url 'Eliminar_ticket' ticket.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-primary">Delete</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       
-    {% endif %}
+      {% endif %}
       
 
 
@@ -48,7 +73,7 @@
 
     <hr class="divider" />
 
-    <h4>Viajes Furutos:</h4>
+    <h4>Viajes Futuros:</h4>
     {% for ticket in tickets_astrotusrita %}
     
     {% if ticket.fecha > fecha_hoy %}
@@ -57,7 +82,7 @@
         <div class="accordion-item">
           <h2 class="accordion-header" id="flush-headingOne">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne{{ticket.id}}" aria-expanded="false" aria-controls="flush-collapseOne">
-                {{ticket.destino}} - Fecha: {{ticket.fecha}}
+                -{{ticket.destino}} - Fecha: {{ticket.fecha}}
             </button>
           </h2>
           <div id="flush-collapseOne{{ticket.id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
@@ -66,8 +91,43 @@
                 Destino: {{ticket.destino}} <br>
                 Vehiculo: {{ticket.vehiculo}} <br>
                 Precio: ${{ticket.precio}} <br>
-                Timepo viaje: {{ticket.tiempo}} <br>
-                Fecha: {{ticket.fecha}} <br></div>
+                Fecha: {{ticket.fecha}} <br>
+                {% if ticket.tiempo < 60 %}
+                  Tiempo viaje: {{ticket.tiempo}} S
+                {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
+                  Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
+                {% else %}
+                  Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
+                {% endif %}
+              <br>
+                Tu peso en tu destino serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
+              </div>
+              <br>
+                Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ticket.id}}">
+                  Eliminar
+                  </button>
+                  <div class="modal fade" id="exampleModal{{ticket.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Eliminar {{ticket.id}}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          ¿Esta seguro que desea eliminar el ticket {{ticket.id}} con destino {{ticket.destino}}?
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <form action="{% url 'Eliminar_ticket' ticket.id %}" method="POST">
+                          {% csrf_token %}
+                          <button class="btn btn-primary">Delete</button>
+                          </form>
+                      </div>
+                      </div>
+                  </div>
+                  </div>
           </div>
         </div>
       </div>

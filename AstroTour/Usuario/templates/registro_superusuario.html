@@ -1,16 +1,20 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
-<form action="" method = "POST" enctype="multipart/form-data">
+<div class="container mt-5">
+    <div class="row">
+        <form action="" method = "POST" enctype="multipart/form-data">
 
-    Codigo de verificacion: <input type="text" name="cod_ver" id="cod_ver"></input>
-    <br>
-    {% csrf_token %}
-    {{astroturista_form.as_p}}
-    {{form.as_p}}
-    
+            Codigo de verificacion: <input type="text" class = "form-control" name="cod_ver" id="cod_ver" placeholder="Ingrese el numero de verificacion proporcionado por administracion"></input>
+            <br>
+            {% csrf_token %}
+            {{astroturista_form.as_p}}
+            {{form.as_p}}
+            
 
-    <button type = "submit">Iniciar Sesion</button>
+            <button type = "submit">Iniciar Sesion</button>
 
-</form>
+        </form>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

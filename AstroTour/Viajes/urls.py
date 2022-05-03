@@ -17,5 +17,10 @@ urlpatterns = [
     path("editar-destino/<pk>", views.Destino_update.as_view(), name = "Editar_destino"),
     #path("crear-vuelo", views.crear_vuelo, name = "Crear_vuelo"),
     path("pagos", views.prueba_pagos),
-    path("", views.inicio, name = "Inicio")
+    path("", views.inicio, name = "Inicio"),
+    path("tickets-admin", views.ver_tickets_admin, name = "Tickets-admin"),
+    path("editar-ticket-admin/<pk>", views.Ticket_admin_delete.as_view(), name = "Eliminar_admin_ticket"),
+    path("eliminar-ticket/<pk>", views.Ticket_delete.as_view(), name = "Eliminar_ticket"),
+    path("vehiculo/<id>", views.ver_vehiculo, name = "Mostrar_vehiculo"),
+    path("destino/<id>", views.ver_destino, name = "Mostrar_destino"),
 ]

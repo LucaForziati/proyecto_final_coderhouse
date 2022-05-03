@@ -1,0 +1,44 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">{{vehiculos.nombre_vehiculo}}</h1>
+                    <!-- Post meta content-->
+                   
+                </header>
+                <!-- Preview image figure-->
+                <div class="row px-1 align-items-center">
+                    <div class="col-lg-9">
+                        <div class="p-0"><img class="img rounded" src="{{vehiculos.imagen.url}}" width="600" height="450" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="p-6">
+                            <h4>Descripcion:</h4>
+                            <p class="fs-6 mb-4">Nombre: {{vehiculos.nombre_vehiculo}}</p>
+                            <p class="fs-6 mb-4">Cantidad de pasajeros:{{vehiculos.cantidad_pasajeros}}</p>
+                            <p class="fs-6 mb-4">Velocidad: {{vehiculos.velocidad}} km/s</p>
+                            <p class="fs-6 mb-4">Precio por kilometro: ${{vehiculos.precio_x_km}}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="divider" />
+                <!-- Post content-->
+                <section class="mb-4">
+                    <p class="fs-5 mb-4">{{vehiculos.descripcion}}</p>
+                </section>
+                <a type="button" class="btn btn-secondary" href="{% url 'Mostrar_vehiculos' %}">Volver</a>
+                <a type="button" class="btn btn-secondary" href="{% url 'Crear_ticket' %}">¡Saca tu ticket!</a>
+            </article>
+        </div>
+    </div>
+</div>
+
+{% endblock ContenidoQueCambia %}
