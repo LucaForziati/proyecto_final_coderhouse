@@ -223,8 +223,10 @@ def crear_ticket(request):
     else: 
 
         ticket_formulario = Ticket_formulario()
+        vehiculos = Vehiculo.objects.all()
+        destinos = Destino.objects.all()
 
-        return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario})
+        return render(request, "crear_ticket.html", {"crear_ticket_formulario": ticket_formulario, "vehiculos": vehiculos, "destinos": destinos})
 
 
 

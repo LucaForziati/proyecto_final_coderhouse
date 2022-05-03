@@ -59,6 +59,18 @@ class Ticket_formulario(forms.ModelForm):
 
         model = Ticket_abordaje
         fields = ('destino', 'vehiculo', 'fecha')
+        widgets = {
+            'fecha':forms.DateInput(
+                attrs={
+                    'type': 'date'
+                }
+            ),
+            'fecha':forms.DateInput(
+                attrs={
+                    'type': 'date'
+                }
+            ),
+        }
 
 
 class Destino_formulario(forms.ModelForm):
