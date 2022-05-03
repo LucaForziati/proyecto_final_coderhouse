@@ -31,6 +31,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'Ver_post' %}">Comunidad</a></li>
                         {% if request.user.is_superuser %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_vuelos' %}">Ver vuelos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Tickets-admin' %}">Ver tickets</a></li>
                         {% elif request.user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Crear_ticket' %}">Tickets</a></li>
                         {% endif %} 

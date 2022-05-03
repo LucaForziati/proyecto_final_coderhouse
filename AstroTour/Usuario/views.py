@@ -81,6 +81,12 @@ def register(request):
 
     return render(request, "registro.html", {"form": form, "astroturista_form": astroturista_form})
 
+class User_delete(DeleteView):
+
+    model = User
+    success_url = "/viaje/"
+    template_name = "perfil.html"
+
 def register_superusuario(request):
     
 
