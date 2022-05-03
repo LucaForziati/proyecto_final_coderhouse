@@ -5,14 +5,16 @@ from django.contrib.auth.models import User
 
 class Astroturista(models.Model):
 
-    peso = models.IntegerField(null = True, blank = True)
+    peso = models.IntegerField()
     pasaporte_espacial = models.IntegerField()
+    nombre = models.CharField(max_length = 30)
+    apellido = models.CharField(max_length = 30)
+    email = models.EmailField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to = "avatares")
 
-
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+        return f"{self.nombre} {self.apellido}"
 
 class Acompañantes(models.Model):
 

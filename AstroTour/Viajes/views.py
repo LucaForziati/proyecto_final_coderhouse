@@ -228,7 +228,7 @@ def crear_ticket(request):
             asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
             mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
             email_from = settings.EMAIL_HOST_USER 
-            recipent_list = [astroturista.user.email]
+            recipent_list = [astroturista.email]
             send_mail(asunto_mail, mensaje, email_from, recipent_list)
 
             return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
