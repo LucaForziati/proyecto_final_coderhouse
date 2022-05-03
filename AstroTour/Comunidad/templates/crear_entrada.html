@@ -1,12 +1,16 @@
 {% extends "padre_comunidad.html" %}
 {% block ContenidoQueCambia %}
-<form action="" method = "POST" enctype="multipart/form-data">
+<div class="container mt-5">
+    <div class="row">
+        <form action="" method = "POST" enctype="multipart/form-data">
 
-    {% csrf_token %}
-    {{crear_entrada_formulario.as_p}}
-    
-    <button type = "submit">Crear Post</button>
+            {% csrf_token %}
+            {{crear_entrada_formulario.as_p}}
+            
+            <button type = "submit">Crear Post</button>
 
-</form>
+        </form>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

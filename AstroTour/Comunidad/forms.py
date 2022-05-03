@@ -8,6 +8,33 @@ class Post_formulario(forms.ModelForm):
 
         model = Posts
         fields = ('nombre_post', 'descripcion', 'texto', 'imagen')
+        widgets = {
+            'texto':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese su comentario',
+                    'cols': '2px',
+                    'rows': '2px'
+                }
+            ),
+            'nombre_post':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese nombre post',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'descripcion':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese descripcion del post',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+        }
+        
 
 class Comentarios_formulario(forms.ModelForm):
 

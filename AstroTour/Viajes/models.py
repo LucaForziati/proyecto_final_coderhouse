@@ -70,3 +70,4 @@ class Vuelos_pasajeros(models.Model):
 
     vuelos = models.ForeignKey(Vuelos, on_delete= models.CASCADE, blank = True, null = True)
     tickets = models.ForeignKey(Ticket_abordaje, on_delete= models.CASCADE, blank = True, null = True)
+

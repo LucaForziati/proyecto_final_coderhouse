@@ -77,6 +77,7 @@ class Vehiculos_vista(ListView):
     template_name = "mostrar_vehiculos.html"
 
 
+
 class Vehiculos_delete(DeleteView):
 
     model = Vehiculo
@@ -89,6 +90,13 @@ class Vehiculos_update(UpdateView):
     success_url = "/viaje/mostrar-vehiculos"
     fields = ['nombre_vehiculo', 'cantidad_pasajeros', 'velocidad', 'precio_x_km', 'imagen', 'descripcion']
     template_name = "editar_vehiculo.html"
+
+def ver_vehiculo(request, id):
+        
+    vehiculos = Vehiculo.objects.get(id=id)
+
+    return render(request,'ver_vehiculo.html', {'vehiculos': vehiculos})
+
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -121,6 +129,13 @@ def crear_destino(request):
         destino_formulario = Destino_formulario()
 
         return render(request, "crear_destino.html", {"crear_destino_formulario": destino_formulario})
+
+
+def ver_destino(request, id):
+        
+    destinos = Destino.objects.get(id = id)
+
+    return render(request,'ver_destino.html', {'destinos': destinos})
 
 
 class Destinos_vista(ListView):
@@ -200,16 +215,10 @@ def crear_ticket(request):
                 vuelo_ya_creado.asientos_disponibles -= 1
                 vuelo_ya_creado.save()
             
-            qr = qrcode.QRCode(
-                version = 1,
-                error_correction = qrcode.constants.ERROR_CORRECT_H,
-                box_size = 10,
-                border = 4
-            )
             
+            ticket_contexto = ticket
 
-
-            return render(request, "pagos.html", )
+            return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
 
     else: 
 
@@ -235,6 +244,7 @@ class Vuelos_vista(SuperuserRequiredMixin, ListView):
 
     model = Vuelos
     template_name = "mostrar_vuelos.html"
+
 
 @login_required
 def mostrar_tickets_astroturista(request):
@@ -283,22 +293,7 @@ def ver_tickets_admin(request):
 
         return render(request, "ver_tickets_admin.html", {"tickets": tickets, "fecha_hoy": now})
 
-@user_passes_test(lambda u: u.is_superuser)
-def buscar_ticket(request):
 
-    if request.method == "POST":
-        id_ticket = request.POST["numero_ticket"]
-        dato_ticket = Ticket_abordaje.objects.get(id = id_ticket)
-
-        print("++++++++++")
-        print(dato_ticket)
-
-        ticket_contexto = dato_ticket
-
-        return render(request, "ticket_buscado.html", {"ticket_contexto": ticket_contexto})
-    else:
-        
-        return render(request, "ver_tickets_admin.html")
 
 
 

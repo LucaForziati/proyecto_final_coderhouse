@@ -22,7 +22,6 @@
                   Destino: {{ticket.destino}} <br>
                   Vehiculo: {{ticket.vehiculo}} <br>
                   Precio: ${{ticket.precio}} <br>
-                  Timepo viaje: {{ticket.tiempo}} <br>
                   Fecha: {{ticket.fecha}} <br>
                   
                   {% if ticket.tiempo < 60 %}
@@ -32,6 +31,8 @@
                   {% else %}
                     Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
                   {% endif %}
+                  <br>
+                  Tu peso en tu destino serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
                   <br>
                   Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
 
@@ -90,7 +91,6 @@
                 Destino: {{ticket.destino}} <br>
                 Vehiculo: {{ticket.vehiculo}} <br>
                 Precio: ${{ticket.precio}} <br>
-                Timepo viaje: {{ticket.tiempo}} <br>
                 Fecha: {{ticket.fecha}} <br></div>
                 {% if ticket.tiempo < 60 %}
                   Tiempo viaje: {{ticket.tiempo}} S
@@ -99,6 +99,8 @@
                 {% else %}
                   Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
                 {% endif %}
+              <br>
+              Tu peso en tu destino serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
               <br>
                 Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
           </div>

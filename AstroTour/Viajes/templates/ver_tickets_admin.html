@@ -38,6 +38,8 @@
                         Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
                         {% endif %}
                         <br>
+                        El peso del usuario serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
+                        <br>
                         Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
                         <br>
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ticket.id}}">
@@ -105,6 +107,7 @@
                             Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
                         {% endif %}
                         <br>
+                        El peso del usuario serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
                         Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
                         <br>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ticket.id}}">

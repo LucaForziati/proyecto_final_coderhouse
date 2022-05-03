@@ -1,0 +1,45 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">{{destinos.lugar}}</h1>
+                    <!-- Post meta content-->
+                   
+                </header>
+                <!-- Preview image figure-->
+                <div class="row px-1 align-items-center">
+                    <div class="col-lg-9">
+                        <div class="p-0"><img class="img rounded" src="{{destinos.imagen.url}}" width="750" height="450" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="p-6">
+                            <h4>Descripcion:</h4>
+                            <p class="fs-6 mb-4">Nombre: {{destinos.lugar}}</p>
+                            <p class="fs-6 mb-4">Ubicacion:{{destinos.ubicacion}}</p>
+                            <p class="fs-6 mb-4">Distancia desde tierra: {{destinos.kilometros}} km</p>
+                            <p class="fs-6 mb-4">Gravedad destino: {{destinos.gravedad}}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="divider" />
+                <!-- Post content-->
+                <section class="mb-4">
+                    <p class="fs-5 mb-4">{{destinos.descripcion}}</p>
+                </section>
+                <a type="button" class="btn btn-secondary" href="{% url 'Mostrar_destinos' %}">Volver</a>
+                <a type="button" class="btn btn-secondary" href="{% url 'Crear_ticket' %}">¡Saca tu ticket!</a>
+                
+            </article>
+        </div>
+    </div>
+</div>
+
+{% endblock ContenidoQueCambia %}
