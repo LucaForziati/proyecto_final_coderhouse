@@ -1,0 +1,28 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+<div class="container mt-5">
+    <div class="row">
+<form action="" method="POST"> {% csrf_token %}
+    <div class="form-floating">
+        <input type="email" class="form-control" id="contactenos_email" name = "contactenos_email" placeholder="Email">
+        <label for= floatingInput>Email</label>
+      </div>
+    <div class="form-floating">
+        <input type="text" class="form-control" id="contactenos_nombre" name = "contactenos_nombre" placeholder="Nombre">
+        <label for="floatingInput">Nombre</label>
+    </div>
+    <div class="form-floating">
+        <input type="text" class="form-control" id="contactenos_apellido" name = "contactenos_apellido" placeholder="Apellido">
+        <label for="floatingInput">Apellido</label>
+    </div>
+    <div class="form-floating">
+        <textarea class="form-control" placeholder="Deje su comentario" id="contactenos_texto" name = "contactenos_texto" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Deje tu comentario</label>
+    </div>
+    <button type = "submit" class="btn btn-secondary">Enviar comentario</button>
+</form>
+    </div>
+</div>
+
+
+{% endblock ContenidoQueCambia %}

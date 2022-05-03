@@ -95,7 +95,7 @@ class UserCreationForm(forms.ModelForm):
             'email':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese ubicacion del destino',
+                    'placeholder': 'Ingrese su email',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -103,7 +103,7 @@ class UserCreationForm(forms.ModelForm):
             'first_name':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese kilometros al destino (desde la tierra)',
+                    'placeholder': 'Ingrese su nombre',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -111,7 +111,7 @@ class UserCreationForm(forms.ModelForm):
             'last_name':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese gravedad del destino',
+                    'placeholder': 'Ingrese su apellido',
                     'cols': '1px',
                     'rows': '1px'
                 }

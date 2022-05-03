@@ -15,6 +15,10 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
+from django.conf import settings
+
+from django.core.mail import send_mail
+
 
 
 # Create your views here.
@@ -144,9 +148,9 @@ def editar_perfil(request):
             informacion2 = mi_formulario2.cleaned_data
 
             astroturista.pasaporte_espacial = informacion2['pasaporte_espacial']
-            astroturista.pasaporte_espacial = informacion2['nombre']
-            astroturista.pasaporte_espacial = informacion2['apellido']
-            astroturista.pasaporte_espacial = informacion2['email']
+            astroturista.nombre = informacion2['nombre']
+            astroturista.apellido = informacion2['apellido']
+            astroturista.email = informacion2['email']
             astroturista.peso = informacion2['peso']
             astroturista.avatar = informacion2['avatar']
             astroturista.save()
@@ -198,4 +202,38 @@ def perfil_astroturistas(request, id):
         kilometros_acumulados += viaje.destino.kilometros
     
     return render(request,'perfil_astroturistas.html', {'perfil': perfil, "cantidad_viajes": cantidad_viajes, "kilometros_acumulados": kilometros_acumulados})
+
+
+def contactanos(request):
+
+    if request.method == "POST":
+
+        email_contacto = request.POST["contactenos_email"]
+        nombre_contacto = request.POST["contactenos_nombre"]
+        apellido_contacto = request.POST["contactenos_apellido"]
+        texto_contacto = request.POST["contactenos_texto"]
+
+        asunto_mail = f"Se ha generado una consulta de {nombre_contacto} {apellido_contacto}"
+        mensaje = f"{texto_contacto} --- {email_contacto}"
+        email_from = email_contacto 
+        recipent_list = ["astrotour2000@gmail.com"]
+        send_mail(asunto_mail, mensaje, email_from, recipent_list)
+
+    else: 
+
+        return render(request, "contactenos.html")
+
+
+def contacto_inconvenientes(request):
+
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)  
+
+    asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
+    mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
+    email_from = settings.EMAIL_HOST_USER 
+    recipent_list = [astroturista.email]
+    send_mail(asunto_mail, mensaje, email_from, recipent_list)
+
+    return render(request, "ticket_generado.html", {"ticket": ticket_contexto})   
 
