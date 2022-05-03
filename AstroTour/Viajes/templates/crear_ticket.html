@@ -4,35 +4,6 @@
     <div class="row">
         <h3>¡Saque su ticket!</h3>
         <form action="" method = "POST" enctype="multipart/form-data"> {% csrf_token %}
-
-            <section class="page-section" id="services">
-                <div class="container px-4 px-lg-5">
-                    <hr class="divider" />
-                    <h5>Seleccione su vehiculo</h5>
-                    <div class="row gx-4 gx-lg-5">
-                      
-                        {% for vehiculo in vehiculos %}
-                            <div class="col-lg-3 col-md-6 text-center">
-                                <div class="card" style="width: 18rem;">
-                                 <img src= "{{vehiculo.imagen.url}}" class="text-center" width="286" height="200" alt="...">
-                                    <div class="card-body">
-                                    <h5 class="card-title">{{vehiculo.nombre_vehiculo}}</h5>
-                                    <p class="card-text">
-                                        Cantidad pasajeros: {{vehiculo.cantidad_pasajeros}} <br>
-                                        Velocidad: {{vehiculo.velocidad}} km/h <br>
-                                        Precio por kilometro: ${{vehiculo.precio_x_km}} <br>
-                                    </p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-
-                    </div>
-                    <p></p>
-                    Seleccione vehiculo aqui: {{crear_ticket_formulario.vehiculo}}
-                    
-                </div>
-            </section>
             <section class="page-section" id="services">
                 <div class="container px-4 px-lg-5">
                     <hr class="divider" />
@@ -61,6 +32,35 @@
                     
                 </div>
             </section>
+            <section class="page-section" id="services">
+                <div class="container px-4 px-lg-5">
+                    <hr class="divider" />
+                    <h5>Seleccione su vehiculo</h5>
+                    <div class="row gx-4 gx-lg-5">
+                      
+                        {% for vehiculo in vehiculos %}
+                            <div class="col-lg-3 col-md-6 text-center">
+                                <div class="card" style="width: 18rem;">
+                                 <img src= "{{vehiculo.imagen.url}}" class="text-center" width="286" height="200" alt="...">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{vehiculo.nombre_vehiculo}}</h5>
+                                    <p class="card-text">
+                                        Cantidad pasajeros: {{vehiculo.cantidad_pasajeros}} <br>
+                                        Velocidad: {{vehiculo.velocidad}} km/h <br>
+                                        Precio por kilometro: ${{vehiculo.precio_x_km}} <br>
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                    <p></p>
+                    Seleccione vehiculo aqui: {{crear_ticket_formulario.vehiculo}}
+                    
+                </div>
+            </section>
+
             <section class="page-section" id="services">
                 <div class="container px-4 px-lg-5">
                     <hr class="divider" />

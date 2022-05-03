@@ -14,8 +14,10 @@ class Destino(models.Model):
     ubicacion = models.CharField(max_length= 50)
     kilometros = models.IntegerField()
     gravedad = models.FloatField()
-    imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
+    resumen = models.TextField()
     descripcion = models.TextField()
+    imagen = models.ImageField(upload_to = "imagen")
+
 
     def __str__(self):
         return f"{self.lugar}"
@@ -25,9 +27,10 @@ class Vehiculo(models.Model):
     nombre_vehiculo = models.CharField(max_length= 50)
     cantidad_pasajeros = models.IntegerField()
     velocidad = models.IntegerField()
-    precio_x_km = models.IntegerField()
-    imagen = models.ImageField(upload_to = "imagen", null = True, blank = True)
+    precio_x_km = models.FloatField()
+    resumen = models.TextField()
     descripcion = models.TextField()
+    imagen = models.ImageField(upload_to = "imagen")
 
     def __str__(self):
         return f"{self.nombre_vehiculo}"

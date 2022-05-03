@@ -1,8 +1,16 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
+
 <div class="container mt-5">
     <div class="row">
         <h3>Crear destino</h3>
+        
+        {% if crear_destino_formulario.errors %}
+
+            <p style="color: red">Estan mal los datos</p>
+            
+        {% endif %}
+            
         <form action="" method = "POST" enctype="multipart/form-data">
 
             {% csrf_token %}

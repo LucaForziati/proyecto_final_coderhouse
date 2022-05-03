@@ -8,7 +8,7 @@ class Astroturista(models.Model):
     peso = models.IntegerField(null = True, blank = True)
     pasaporte_espacial = models.IntegerField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to = "avatares", null = True, blank = True)
+    avatar = models.ImageField(upload_to = "avatares")
 
 
     def __str__(self):

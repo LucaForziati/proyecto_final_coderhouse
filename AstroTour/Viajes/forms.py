@@ -35,6 +35,14 @@ class Vehiculo_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
+            'resumen':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese velocidad del vehiculo',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
             'precio_x_km':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
@@ -108,6 +116,14 @@ class Destino_formulario(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese gravedad del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'resumen':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese velocidad del vehiculo',
                     'cols': '1px',
                     'rows': '1px'
                 }

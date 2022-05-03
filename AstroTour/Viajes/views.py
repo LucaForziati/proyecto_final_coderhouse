@@ -56,6 +56,7 @@ def crear_vehiculos(request):
                 velocidad = vehiculo_informacion["velocidad"],
                 precio_x_km = vehiculo_informacion["precio_x_km"],
                 imagen = vehiculo_informacion["imagen"],
+                resumen = vehiculo_informacion["resumen"],
                 descripcion = vehiculo_informacion["descripcion"]
                 )
             vehiculo.save()
@@ -116,6 +117,7 @@ def crear_destino(request):
                 kilometros = destino_informacion["kilometros"],
                 gravedad = destino_informacion["gravedad"],
                 imagen = destino_informacion["imagen"],
+                resumen = destino_informacion["resumen"],
                 descripcion = destino_informacion["descripcion"]
                 )
             destino.save()
