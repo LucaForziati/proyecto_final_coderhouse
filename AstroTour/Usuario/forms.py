@@ -15,12 +15,36 @@ class Astroturista_formulario(forms.ModelForm):
     class Meta:
 
         model = Astroturista
-        fields = ('pasaporte_espacial','peso', 'avatar')
+        fields = ('pasaporte_espacial','nombre', 'apellido', 'email', 'peso', 'avatar', )
         widgets = {
             'pasaporte_espacial':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese nombre del destino',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'nombre':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese su nombre',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'apellido':forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese su apellido',
+                    'cols': '1px',
+                    'rows': '1px'
+                }
+            ),
+            'email':forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ingrese su email',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -45,15 +69,13 @@ class Acompañantes_formulario(forms.ModelForm):
 
 class UserEditForm(UserCreationForm):
 
-
-    email = forms.EmailField(label="Modificar E-mail")
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Repetir la contraseña', widget=forms.PasswordInput) 
 
 
     class Meta:
         model = User
-        fields = [ 'email', 'password1', 'password2'] 
+        fields = ['password1', 'password2'] 
         help_texts = {k:"" for k in fields}
 
 class UserCreationForm(forms.ModelForm):
@@ -101,6 +123,9 @@ class UserCreationForm(forms.ModelForm):
 class AstroturistaEditForm(Astroturista_formulario):
 
     pasaporte_espacial = forms.IntegerField(label = "Modifica tu pasaporte espacial")
+    nombre = forms.CharField(max_length = 30, label = "Modifica tu nombre")
+    apellido = forms.CharField(max_length = 30, label = "Modifica tu apellido")
+    email = forms.CharField(max_length = 30, label = "Modifica tu email")
     peso = forms.IntegerField(label = "Modifica tu peso")
     avatar = forms.ImageField( label = "Modifica tu avatar")
 
@@ -136,7 +161,7 @@ class SuperUserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "first_name", "last_name", "is_superuser", "is_staff")
+        fields = ("username","is_superuser", "is_staff")
         field_classes = {"username": UsernameField, "email": forms.EmailField, "first_name": forms.CharField, "last_name": forms.CharField, "is_superuser": forms.BooleanField, "is_staff": forms.BooleanField}
         widgets = {
             'username':forms.Textarea(

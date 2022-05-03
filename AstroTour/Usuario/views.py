@@ -43,10 +43,10 @@ def login_request(request):
 
                 login(request, user)
 
-                return render(request, "inicio_sesion.html", {"usuario": user})
+                return render(request, "inicio.html", {"usuario": user})
             else:
 
-                return render(request, "inicio_sesion.html")
+                return render(request, "inicio.html")
         else:
 
             return render(request, "inicio_sesion.html")
@@ -144,6 +144,9 @@ def editar_perfil(request):
             informacion2 = mi_formulario2.cleaned_data
 
             astroturista.pasaporte_espacial = informacion2['pasaporte_espacial']
+            astroturista.pasaporte_espacial = informacion2['nombre']
+            astroturista.pasaporte_espacial = informacion2['apellido']
+            astroturista.pasaporte_espacial = informacion2['email']
             astroturista.peso = informacion2['peso']
             astroturista.avatar = informacion2['avatar']
             astroturista.save()
