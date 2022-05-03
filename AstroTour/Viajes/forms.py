@@ -19,7 +19,7 @@ class Vehiculo_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
-            'cantidad_pasajeros':forms.Textarea(
+            'cantidad_pasajeros':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese cantidad de pasajeros del vehiculo',
@@ -27,7 +27,7 @@ class Vehiculo_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
-            'velocidad':forms.Textarea(
+            'velocidad':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese velocidad del vehiculo',
@@ -35,7 +35,7 @@ class Vehiculo_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
-            'precio_x_km':forms.Textarea(
+            'precio_x_km':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese el precio por kilometro del vehiculo',
@@ -84,7 +84,7 @@ class Destino_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
-            'kilometros':forms.Textarea(
+            'kilometros':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese kilometros al destino (desde la tierra)',
@@ -92,7 +92,7 @@ class Destino_formulario(forms.ModelForm):
                     'rows': '1px'
                 }
             ),
-            'gravedad':forms.Textarea(
+            'gravedad':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ingrese gravedad del destino',
