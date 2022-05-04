@@ -1,0 +1,15 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="alert alert-danger" role="alert">
+            Lo sentimos, no fue posible generar su ticket ya que no cuenta con asientos disponibles
+        </div>
+        <p>Busque un nuevo vuelo</p>
+        <a type = "btn" class="btn btn-primary" href = "{% url 'Crear_ticket' %}" >Editar</a>
+    </div>
+</div>
+
+{% endblock ContenidoQueCambia %}

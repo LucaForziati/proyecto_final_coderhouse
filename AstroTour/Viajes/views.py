@@ -188,52 +188,58 @@ def crear_ticket(request):
                     tiempo = None,
                     fecha = ticket_informacion["fecha"]
                     )
-                ticket.save()
-            
-                ticket.precio = ticket.destino.kilometros * ticket.vehiculo.precio_x_km
-                ticket.save()
 
-                ticket.tiempo = ticket.destino.kilometros / ticket.vehiculo.velocidad
-                ticket.save()
+                if Vuelos.objects.filter(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).exists() and Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).asientos_disponibles < 1:
 
+                    return render(request, "no_mas_asientos.html")
 
-                tiempo = (ticket.tiempo*60) % 60   
-
-                vuelos = Vuelos (   
-                    destino = ticket_informacion["destino"],
-                    vehiculo = ticket_informacion["vehiculo"],
-                    fecha = ticket_informacion["fecha"],
-                    asientos_disponibles = ticket.vehiculo.cantidad_pasajeros - 1,
-                    tiempo_viaje = ticket.tiempo
-                )
+                else:    
+                    ticket.save()
                 
-                if not Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists(): 
+                    ticket.precio = ticket.destino.kilometros * ticket.vehiculo.precio_x_km
+                    ticket.save()
 
-                    vuelos.save()
-                    vuelos.vuelo_ticket.add(ticket.id)
+                    ticket.tiempo = ticket.destino.kilometros / ticket.vehiculo.velocidad
+                    ticket.save()
 
-                elif Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists() and (not Vuelos.objects.filter(vehiculo = ticket.vehiculo).exists() or not Vuelos.objects.filter(destino = ticket.destino).exists()): 
 
+                    tiempo = (ticket.tiempo*60) % 60   
+
+                    vuelos = Vuelos (   
+                        destino = ticket_informacion["destino"],
+                        vehiculo = ticket_informacion["vehiculo"],
+                        fecha = ticket_informacion["fecha"],
+                        asientos_disponibles = ticket.vehiculo.cantidad_pasajeros - 1,
+                        tiempo_viaje = ticket.tiempo
+                    )
                     
-                    vuelos.save()
-                    vuelos.vuelo_ticket.add(ticket.id)
+                    if not Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists(): 
 
-                else:
-                    vuelo_ya_creado = Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino)
-                    Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino).vuelo_ticket.add(ticket.id)
-                    vuelo_ya_creado.asientos_disponibles -= 1
-                    vuelo_ya_creado.save()
-                
-                
-                ticket_contexto = ticket
+                        vuelos.save()
+                        vuelos.vuelo_ticket.add(ticket.id)
 
-                asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
-                mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
-                email_from = settings.EMAIL_HOST_USER 
-                recipent_list = [astroturista.email]
-                send_mail(asunto_mail, mensaje, email_from, recipent_list)
+                    elif Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists() and (not Vuelos.objects.filter(vehiculo = ticket.vehiculo).exists() or not Vuelos.objects.filter(destino = ticket.destino).exists()): 
 
-                return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
+                        
+                        vuelos.save()
+                        vuelos.vuelo_ticket.add(ticket.id)
+
+                    else:
+                        vuelo_ya_creado = Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo)
+                        Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).vuelo_ticket.add(ticket.id)
+                        vuelo_ya_creado.asientos_disponibles -= 1
+                        vuelo_ya_creado.save()
+                    
+                    
+                    ticket_contexto = ticket
+
+                    asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
+                    mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
+                    email_from = settings.EMAIL_HOST_USER 
+                    recipent_list = [astroturista.email]
+                    send_mail(asunto_mail, mensaje, email_from, recipent_list)
+
+                    return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
             
             else:
                 
