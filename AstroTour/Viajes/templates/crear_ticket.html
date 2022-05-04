@@ -3,6 +3,13 @@
 <div class="container mt-5">
     <div class="row">
         <h3>¡Saque su ticket!</h3>
+        
+        {% if request.POST %}
+        <div class="alert alert-danger" role="alert">
+            {{mensaje_error}}
+          </div>
+        {% endif %}
+            
         <form action="" method = "POST" enctype="multipart/form-data"> {% csrf_token %}
             <section class="page-section" id="services">
                 <div class="container px-4 px-lg-5">

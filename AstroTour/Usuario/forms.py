@@ -20,7 +20,7 @@ class Astroturista_formulario(forms.ModelForm):
             'pasaporte_espacial':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese nombre del destino',
+                    'placeholder': 'Ingrese su pasaporte espacial',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -52,7 +52,7 @@ class Astroturista_formulario(forms.ModelForm):
             'peso':forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese ubicacion del destino',
+                    'placeholder': 'Ingrese su peso',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -87,7 +87,7 @@ class UserCreationForm(forms.ModelForm):
             'username':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese nombre del destino',
+                    'placeholder': 'Ingrese nombre su usuario',
                     'cols': '1px',
                     'rows': '1px'
                 }
@@ -167,7 +167,7 @@ class SuperUserCreationForm(forms.ModelForm):
             'username':forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ingrese nombre del destino',
+                    'placeholder': 'Ingrese su usuario',
                     'cols': '1px',
                     'rows': '1px'
                 }

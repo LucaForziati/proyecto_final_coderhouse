@@ -75,7 +75,7 @@ def register(request):
             astroturista.user = user
             astroturista.save()
 
-            return render(request, "login.html")
+            return render(request, "inicio.html")
 
     
     else:
