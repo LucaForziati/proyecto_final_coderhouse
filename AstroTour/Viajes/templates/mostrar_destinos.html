@@ -15,8 +15,9 @@
                         Destino: {{destino.lugar}} <br>
                         Ubicacion: {{destino.ubicacion}}<br>
                         Distancia: {{destino.kilometros}} km<br>
-                        Gravedad: {{destino.gravedad}} km<br>
+                        Gravedad: {{destino.gravedad}}<br>
                     </p>
+            
                     
                     {% if request.user.is_superuser %}
                     <a type = "btn" class="btn btn-primary" href = "{% url 'Editar_destino' destino.id %}" >Editar</a>

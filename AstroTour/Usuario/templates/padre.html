@@ -26,9 +26,11 @@
                     <ul class="navbar-nav ms-auto">
                         {% if not request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Register' %}">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Acerca' %}">Acerca</a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'Contactenos' %}">Contactenos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Ver_post' %}">Comunidad</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Acerca' %}">Acerca</a></li>
                         {% if request.user.is_superuser %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_vuelos' %}">Ver vuelos</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'Tickets-admin' %}">Ver tickets</a></li>

@@ -13,4 +13,5 @@ urlpatterns = [
     path('perfil-astro/<id>',views.perfil_astroturistas,name="Perfil-astro"),
     path('eliminar-astro/<pk>', views.User_delete.as_view(), name = 'Eliminar-astroturista'),
     path('contactenos', views.contactanos, name = 'Contactenos'),
+    path('acerca', views.acerca, name = "Acerca")
 ]

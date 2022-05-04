@@ -225,5 +225,9 @@ def contactanos(request):
 
         return render(request, "contactenos.html")
 
+def acerca(request):
+
+    return render(request, "acerca.html")
+
 
 

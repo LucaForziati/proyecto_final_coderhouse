@@ -69,7 +69,7 @@ def crear_vehiculos(request):
             vehiculo_contexto = vehiculo_informacion
 
 
-            return render(request, "padre_viaje.html", {"vehiculo_contexto": vehiculo_contexto})
+            return render(request, "inicio.html", {"vehiculo_contexto": vehiculo_contexto})
 
     else: 
 
