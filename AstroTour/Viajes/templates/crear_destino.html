@@ -16,7 +16,11 @@
             {% csrf_token %}
             {{crear_destino_formulario.as_p}}
             
-            <button type = "submit">Crear destino</button>
+            <button type = "submit" class="btn btn-secondary" >Crear destino</button>
+            <p></p>
+            <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
+
+            
 
         </form>
     </div>

@@ -382,7 +382,7 @@ def volver_tierra(request):
                         vuelos.save()
                         vuelos.vuelo_ticket.add(ticket.id)
 
-                    elif Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists() and (not Vuelos.objects.filter(vehiculo = ticket.vehiculo).exists() or not Vuelos.objects.filter(destino = ticket.destino).exists()): 
+                    elif Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists() and Vuelos.objects.filter(vehiculo = ticket.vehiculo).exists(): 
 
                         
                         vuelos.save()

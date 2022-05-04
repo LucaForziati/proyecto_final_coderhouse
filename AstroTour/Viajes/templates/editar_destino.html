@@ -1,21 +1,25 @@
 {% extends "padre.html" %}
 {% block ContenidoQueCambia %}
+<div class="container mt-5">
+    <div class="row">
+        <h4>Edita el vehiculo</h4>
 
-<h4>Edita el vehiculo</h4>
+        <form action="" method="POST">{% csrf_token %}
 
-<form action="" method="POST">{% csrf_token %}
+            
+            <table>
 
-    
-    <table>
-
-        {{ form.as_p }}
-
-
-    </table>
+                {{ form.as_p }}
 
 
-    <input type="submit", value="Enviar">
+            </table>
 
-</form>
+
+            <button type = "submit" class="btn btn-secondary">Editar destino</button>
+            
+        </form>
+        <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
+    </div>
+</div>
 
 {% endblock ContenidoQueCambia %}

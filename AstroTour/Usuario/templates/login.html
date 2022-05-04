@@ -9,7 +9,11 @@
 
             {{form.as_p}}
 
-            <button type = "submit">Iniciar Sesion</button>
+            <button type = "submit" class="btn btn-secondary">Iniciar Sesion</button>
+            <p></p>
+            <a type = "btn" href = "{% url 'Register' %}" class="btn btn-secondary">Registrese</a>
+            <p></p>
+            <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
 
         </form>
     </div>

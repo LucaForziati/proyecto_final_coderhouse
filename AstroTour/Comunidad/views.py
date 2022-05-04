@@ -6,12 +6,15 @@ from Usuario.models import Astroturista
 from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def ver_padre_comunidad(request):
 
     return render(request, "padre_comunidad.html")
 
+@login_required
 def crear_post(request):
 
     user1 = request.user
@@ -44,7 +47,7 @@ def crear_post(request):
 
         return render(request, "crear_entrada.html", {"crear_entrada_formulario": post_form})
 
-
+@login_required
 def crear_comentario(request):
 
     user1 = request.user
@@ -75,7 +78,7 @@ def crear_comentario(request):
 
         return render(request, "posts.html", {"comentario_formulario": comentario_form})
 
-
+@login_required
 def posteos(request):
     post = Posts.objects.all()
 
@@ -86,6 +89,7 @@ def posteos(request):
 
     return render(request, 'inicio_posts.html', contexto)
 
+@login_required
 def ver_posteos(request, id):
         
     post = Posts.objects.get(id=id)
@@ -125,7 +129,7 @@ class Posts_update(UpdateView):
     fields = ['nombre_post', 'descripcion', 'texto', 'imagen']
     template_name = "editar_post.html"
 
-
+@login_required
 def dar_like(request,id):
 
     user1 = request.user

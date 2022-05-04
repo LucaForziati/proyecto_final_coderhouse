@@ -18,19 +18,26 @@
                     <div class="row gx-4 gx-lg-5">
                       
                         {% for destino in destinos %}
-                            <div class="col-lg-3 col-md-6 text-center">
-                                <div class="card" style="width: 18rem;">
-                                 <img src= "{{destino.imagen.url}}" class="text-center" width="286" height="200" alt="...">
-                                    <div class="card-body">
-                                    <h5 class="card-title">{{destino.lugar}}</h5>
-                                    <p class="card-text">
-                                        Ubicacion: {{destino.ubicacion}} <br>
-                                        Distancia: {{destino.kilometros}} km <br>
-                                        Gravedad: {{destino.gravedad}} <br>
-                                    </p>
+
+                            
+                            {% if destino.lugar == "Tierra" %}
+
+                            {% else %}
+                                <div class="col-lg-3 col-md-6 text-center">
+                                    <div class="card" style="width: 18rem;">
+                                    <img src= "{{destino.imagen.url}}" class="text-center" width="286" height="200" alt="...">
+                                        <div class="card-body">
+                                        <h5 class="card-title">{{destino.lugar}}</h5>
+                                        <p class="card-text">
+                                            Ubicacion: {{destino.ubicacion}} <br>
+                                            Distancia: {{destino.kilometros}} km <br>
+                                            Gravedad: {{destino.gravedad}} <br>
+                                        </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
+                                
                         {% endfor %}
 
                     </div>
@@ -82,6 +89,9 @@
             <button type="submit" class="btn btn-primary">Crear ticket</button>
         
         </form>
+        <p>
+        <h5>Si desea obtener un ticket a la tierra <a href="{% url 'Crear_ticket_tierra' %}">presione aqui</a></h5>
+        <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
     </div>
 </div>
 

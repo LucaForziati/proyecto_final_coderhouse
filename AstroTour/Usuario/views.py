@@ -53,7 +53,7 @@ def login_request(request):
                 return render(request, "inicio.html")
         else:
 
-            return render(request, "inicio_sesion.html")
+            return render(request, "problemas_al_ingresar.html")
 
     form = AuthenticationForm()
 

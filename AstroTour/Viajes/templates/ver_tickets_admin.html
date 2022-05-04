@@ -31,11 +31,11 @@
                         Fecha: {{ticket.fecha}} <br>
                         
                         {% if ticket.tiempo < 60 %}
-                        Tiempo viaje: {{ticket.tiempo}} S
+                        Tiempo viaje: {{ticket.tiempo|floatformat:0}} S
                         {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
-                        Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
+                        Tiempo viaje: {{ticket.tiempo|intdiv:60|floatformat:0}} M, {{ticket.tiempo|mod:60|floatformat:0}} S
                         {% else %}
-                        Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
+                        Tiempo viaje: {{ticket.tiempo|intdiv:3600|floatformat:0}} H, {{ticket.tiempo|mod:3600|intdiv:60|floatformat:0}}  M, {{ticket.tiempo|mod:3600|mod:60|floatformat:0}} S
                         {% endif %}
                         <br>
                         El peso del usuario serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
@@ -98,16 +98,17 @@
                         Destino: {{ticket.destino}} <br>
                         Vehiculo: {{ticket.vehiculo}} <br>
                         Precio: ${{ticket.precio}} <br>
-                        Fecha: {{ticket.fecha}} <br></div>
+                        Fecha: {{ticket.fecha}} <br>
                         {% if ticket.tiempo < 60 %}
-                            Tiempo viaje: {{ticket.tiempo}} S
+                            Tiempo viaje: {{ticket.tiempo|floatformat:0}} S
                         {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
-                            Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
+                            Tiempo viaje: {{ticket.tiempo|intdiv:60|floatformat:0}} M, {{ticket.tiempo|mod:60|floatformat:0}} S
                         {% else %}
-                            Tiempo viaje: {{ticket.tiempo|intdiv:3600}} H, {{ticket.tiempo|mod:3600|intdiv:60}}  M, {{ticket.tiempo|mod:3600|mod:60}} S
-                        {% endif %}
+                            Tiempo viaje: {{ticket.tiempo|intdiv:3600|floatformat:0}} H, {{ticket.tiempo|mod:3600|intdiv:60|floatformat:0}}  M, {{ticket.tiempo|mod:3600|mod:60|floatformat:0}} S
+                        {% endif %} 
                         <br>
-                        El peso del usuario serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g
+                        El peso del usuario serà: {{ticket.usuario.peso|mul:ticket.destino.gravedad|div:9.80|floatformat:2}} g 
+                        <br>
                         Codigo Qr: <img src= "{{ticket.codigo_qr.url}}" class="text-center" width="200" height="200" alt="...">
                         <br>
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal{{ticket.id}}">
@@ -142,5 +143,6 @@
         {% endif %}
 
     {% endfor %}
+    <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
 </section>
 {% endblock ContenidoQueCambia %}

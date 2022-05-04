@@ -22,7 +22,7 @@
                         <div class="p-6">
                             <h4>Descripcion:</h4>
                             <p class="fs-6 mb-4">Lugar: {{planeta_tierra.lugar}}</p>
-                            <p class="fs-6 mb-4">Ubicacion:{{planeta_tierra.destino}}</p>
+                            <p class="fs-6 mb-4">Ubicacion: {{planeta_tierra.ubicacion}}</p>
                             <p class="fs-6 mb-4">Distancia: {{planeta_tierra.kilometros}}</p>
                             <p class="fs-6 mb-4">Gravedad: {{planeta_tierra.gravedad}}</p>
                         </div>
@@ -46,6 +46,7 @@
                 </form>
                 <a type="button" class="btn btn-secondary" href="{% url 'Crear_ticket' %}">Volver</a>
             </article>
+            <a type = "btn" href = "{% url 'Inicio' %}" class="btn btn-secondary">Volver al inicio</a>
         </div>
     </div>
 </div>

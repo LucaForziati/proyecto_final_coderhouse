@@ -21,23 +21,37 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
             <div class="container px-5">
-                <a class="navbar-brand" href="#page-top">AstroTour</a>
+                <a class="navbar-brand" href="{% url 'Inicio' %}">AstroTour</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">Sign Up</a></li>
+                        {% if not request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Register' %}">Registrarse</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Contactenos' %}">Contactenos</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'Ver_post' %}">Comunidad</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Crear_ticket' %}">Tickets</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Log In</a></li>
+                        {% if request.user.is_superuser %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Mostrar_vuelos' %}">Ver vuelos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Tickets-admin' %}">Ver tickets</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Crear_vehiculo' %}">Crear vehiculo</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Crear_destino' %}">Crear destino</a></li>
+                        {% elif request.user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'Crear_ticket' %}">Tickets</a></li>
+                        {% endif %} 
+                        
+                        {% if not request.user.is_authenticated %}
+                            <li class="nav-item"><a class="btn btn-primary rounded-pill " href="{% url 'Login' %}">Inicia sesion</a></li>
+                        {% endif %}
+                            
+                        
                         {% if request.user.is_authenticated %}
                         <li class = "nav-item">
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://www.informador.mx/__export/1591209620028/sites/elinformador/img/2020/06/03/whatsapp_image_2020-06-03_at_1_22_36_pm_x1x_crop1591209586178.jpg_423682103.jpg" class="rounded-circle"
-                                    height="35" alt="Avatar" loading="lazy" />
+                                    {{request.user.username}}
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="dropdown-item active" href="{% url 'Perfil_propio' %}">{{user.username}}</a></li>
+                                <li><a class="dropdown-item active" href="{% url 'Perfil_propio' %}">Perfil</a></li>
                                 <li><a class="dropdown-item" href="{% url 'Mostrar_tickets_usuario' %}">Mis vuelos</a></li>
                                 <li><a class="dropdown-item" href="{% url 'Editar_perfil' %}">Modificar</a></li>
                                 <li><hr class="dropdown-divider"></li>
