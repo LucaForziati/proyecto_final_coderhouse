@@ -326,6 +326,105 @@ def ver_tickets_admin(request):
 
         return render(request, "ver_tickets_admin.html", {"tickets": tickets, "fecha_hoy": now})
 
+def volver_tierra(request):
+
+    user1 = request.user
+    astroturista = Astroturista.objects.get(user = user1)
+
+
+    if request.method == "POST":
+
+        ticket_formulario = Ticket_formulario(request.POST)
+
+        if ticket_formulario.is_valid():
+
+            ticket_informacion = ticket_formulario.cleaned_data
+
+            tierra = Destino.objects.get(lugar = "Tierra")
+
+            if ticket_informacion["fecha"] > datetime.now().date():
+            
+                ticket = Ticket_abordaje (
+                    usuario = astroturista,
+                    destino = tierra,
+                    vehiculo = ticket_informacion["vehiculo"],
+                    precio = None,
+                    tiempo = None,
+                    fecha = ticket_informacion["fecha"]
+                    )
+
+                if Vuelos.objects.filter(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).exists() and Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).asientos_disponibles < 1:
+
+                    return render(request, "no_mas_asientos.html")
+
+                else:    
+                    ticket.save()
+                
+                    ticket.precio = ticket_informacion["destino"].kilometros * ticket.vehiculo.precio_x_km
+                    ticket.save()
+
+                    ticket.tiempo = ticket_informacion["destino"].kilometros / ticket.vehiculo.velocidad
+                    ticket.save()
+
+
+                    tiempo = (ticket.tiempo*60) % 60   
+
+                    vuelos = Vuelos (   
+                        destino = tierra,
+                        vehiculo = ticket_informacion["vehiculo"],
+                        fecha = ticket_informacion["fecha"],
+                        asientos_disponibles = ticket.vehiculo.cantidad_pasajeros - 1,
+                        tiempo_viaje = ticket.tiempo
+                    )
+                    
+                    if not Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists(): 
+
+                        vuelos.save()
+                        vuelos.vuelo_ticket.add(ticket.id)
+
+                    elif Vuelos.objects.filter(fecha__icontains = ticket.fecha).exists() and (not Vuelos.objects.filter(vehiculo = ticket.vehiculo).exists() or not Vuelos.objects.filter(destino = ticket.destino).exists()): 
+
+                        
+                        vuelos.save()
+                        vuelos.vuelo_ticket.add(ticket.id)
+
+                    else:
+                        vuelo_ya_creado = Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo)
+                        Vuelos.objects.get(fecha = ticket.fecha, destino_id = ticket.destino, vehiculo_id = ticket.vehiculo).vuelo_ticket.add(ticket.id)
+                        vuelo_ya_creado.asientos_disponibles -= 1
+                        vuelo_ya_creado.save()
+                    
+                    
+                    ticket_contexto = ticket
+
+                    asunto_mail = f"Se ha generado el ticket de abordaje {ticket.id}"
+                    mensaje = f"¡Muchas gracias {astroturista}! Su vuelo se ha generado correctamente. Viste nuestro sitio web para mas informacion"
+                    email_from = settings.EMAIL_HOST_USER 
+                    recipent_list = [astroturista.email]
+                    send_mail(asunto_mail, mensaje, email_from, recipent_list)
+
+                    return render(request, "ticket_generado.html", {"ticket": ticket_contexto})
+            
+            else:
+                
+                ticket_formulario = Ticket_formulario()
+
+                mensaje_error = "Fecha no valida. Ingrese una fecha posterior al dia de doy"
+
+                return render(request, "volver_tierra.html", {"crear_ticket_formulario": ticket_formulario, "vehiculos": vehiculos, "destinos": destinos, "mensaje_error": mensaje_error})
+
+    else: 
+
+        ticket_formulario = Ticket_formulario()
+        vehiculos = Vehiculo.objects.all()
+        destinos = Destino.objects.all()
+        planeta_tierra = Destino.objects.get(lugar = "Tierra")
+
+        return render(request, "volver_tierra.html", {"crear_ticket_tierra_formulario": ticket_formulario, "vehiculos": vehiculos, "destinos": destinos, "planeta_tierra" : planeta_tierra})
+
+
+
+
 
 
 

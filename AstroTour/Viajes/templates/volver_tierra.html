@@ -1,0 +1,53 @@
+{% extends "padre.html" %}
+{% block ContenidoQueCambia %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-10">
+            <!-- Post content-->
+            <article>
+                <!-- Post header-->
+                <header class="mb-4">
+                    <!-- Post title-->
+                    <h1 class="fw-bolder mb-1">¡Volver a la tierra!</h1>
+                    <!-- Post meta content-->
+                   
+                </header>
+                <!-- Preview image figure-->
+                <div class="row px-1 align-items-center">
+                    <div class="col-lg-9">
+                        <div class="p-0"><img class="img rounded" src="{{planeta_tierra.imagen.url}}" width="600" height="450" alt="..." /></div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="p-6">
+                            <h4>Descripcion:</h4>
+                            <p class="fs-6 mb-4">Lugar: {{planeta_tierra.lugar}}</p>
+                            <p class="fs-6 mb-4">Ubicacion:{{planeta_tierra.destino}}</p>
+                            <p class="fs-6 mb-4">Distancia: {{planeta_tierra.kilometros}}</p>
+                            <p class="fs-6 mb-4">Gravedad: {{planeta_tierra.gravedad}}</p>
+                        </div>
+                    </div>
+                </div>
+                <hr class="divider" />
+                <!-- Post content-->
+                <section class="mb-4">
+                    <p class="fs-5 mb-4">{{planeta_tierra.descripcion}}</p>
+                </section>
+                <form action="" method = "POST"> {% csrf_token %}
+
+                   Seleccione de donde parte: {{crear_ticket_tierra_formulario.destino}}<br>
+
+                   Seleccione vehiculo: {{crear_ticket_tierra_formulario.vehiculo}}<br>
+
+                   Seleccione fecha: {{crear_ticket_tierra_formulario.fecha}}<br>
+                   
+                   <button type="submit" class="btn btn-secondary">¡Saca tu ticket!</button>
+
+                </form>
+                <a type="button" class="btn btn-secondary" href="{% url 'Crear_ticket' %}">Volver</a>
+            </article>
+        </div>
+    </div>
+</div>
+
+{% endblock ContenidoQueCambia %}

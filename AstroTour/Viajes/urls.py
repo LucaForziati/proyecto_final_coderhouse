@@ -23,4 +23,5 @@ urlpatterns = [
     path("eliminar-ticket/<pk>", views.Ticket_delete.as_view(), name = "Eliminar_ticket"),
     path("vehiculo/<id>", views.ver_vehiculo, name = "Mostrar_vehiculo"),
     path("destino/<id>", views.ver_destino, name = "Mostrar_destino"),
+    path('crear-ticket-tierra', views.volver_tierra, name = "Crear_ticket_tierra"),
 ]
