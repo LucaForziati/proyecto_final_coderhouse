@@ -11,7 +11,7 @@
         Precio: ${{ticket.precio}} <br>
         Fecha: {{ticket.fecha}} <br>
         {% if ticket.tiempo < 60 %}
-            Tiempo viaje: {{ticket.tiempo}} S
+            Tiempo viaje: {{ticket.tiempo|floatformat:0}} S
         {% elif ticket.tiempo > 60 and ticket.tiempo < 3600%}
             Tiempo viaje: {{ticket.tiempo|intdiv:60}} M, {{ticket.tiempo|mod:60}} S
         {% else %}
