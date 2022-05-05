@@ -21,5 +21,5 @@ b) https://youtu.be/QZ1IU6CCFjE
 
 Integrantes:
 
-a) Santiago Dolabjian - Github: Dolab08
+a) Santiago Dolabjian - Github: SantiDolab08
 b) Luca Forziati Nicolas Gangi - Github: LucaForziati
